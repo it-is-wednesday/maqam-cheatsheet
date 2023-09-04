@@ -43,62 +43,9 @@ AJNAS = {
     "upper_rast": [1, 0.75, 0.75],
 }
 
-JINS_TAG = """
-<div class="jins">
-    <h3>$name</h3>
-    <div>$intervals</div>
-</div>
-"""
-
-MAQAM_TAG = """
-<div class="maqam">
-    <h3>$name</h3>
-    <img src="$img_url" class="maqam-img"/>
-    <div class="ajnas">$ajnas</div>
-</div>
-"""
-
-OUT_PAGE = """
-<html>
-    <head>
-        <style>
-        .main {
-            display:flex;
-            flex-wrap: wrap;
-            column-gap: 5%;
-        }
-        .maqam-img {
-            max-width: 100%;
-        }
-        .jins-img {
-            max-width: 100%;
-        }
-        .jins {
-            max-width: 100%;
-        }
-        .maqam {
-            max-width: 30%;
-            padding-bottom: 6em;
-        }
-        .ajnas {
-            display: flex;
-            flex-direction: row;
-            gap: 2em;
-            flex-wrap: wrap;
-        }
-        </style>
-    </head>
-    <body>
-        <div class="main">
-            $maqamat
-        </div>
-    </body>
-</html>
-"""
-
 
 def fetch_maqam(name: str) -> BeautifulSoup:
-    f = Path("cache").joinpath(name)
+    f = Path("maqam-pages-cache").joinpath(name)
     f.parent.mkdir(exist_ok=True)
     if f.exists():
         print(f"Found {name} in cache")
@@ -112,9 +59,13 @@ def fetch_maqam(name: str) -> BeautifulSoup:
     return BeautifulSoup(resp, "html.parser")
 
 
+def get_template(name: str) -> Template:
+    return Template(Path(f"templates/{name}.html").read_text())
+
+
 def jins_in_maqam(maqam_name: str) -> Iterable[str]:
     page = fetch_maqam(maqam_name)
-    jins_template = Template(JINS_TAG)
+    jins_template = get_template("jins-tag")
     for jins in page.find_all(class_="mapLink"):
         href = jins.attrs["href"]
         if match_ := re.search(r"../jins/(.*).php", href):
@@ -127,7 +78,7 @@ def fetch_maqams() -> Iterable[str]:
     # random maqam picked, we just need the sidebar menu
     page = fetch_maqam("ajam")
 
-    maqam_template = Template(MAQAM_TAG)
+    maqam_template = get_template("maqam-tag")
     for row in page.find(class_="sub-menu").find_all("a"):  # type: ignore
         href = row.attrs["href"]
         if href == "#":
@@ -146,7 +97,7 @@ def fetch_maqams() -> Iterable[str]:
 
 def main():
     maqamat_tags = list(fetch_maqams())
-    out = Template(OUT_PAGE).substitute(maqamat="".join(maqamat_tags))
+    out = get_template("index").substitute(maqamat="".join(maqamat_tags))
     with open("out.html", "w") as f:
         f.write(out)
 

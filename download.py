@@ -66,12 +66,16 @@ def get_template(name: str) -> Template:
 def jins_in_maqam(maqam_name: str) -> Iterable[str]:
     page = fetch_maqam(maqam_name)
     jins_template = get_template("jins-tag")
+    interval_template = get_template("interval-tag")
     for jins in page.find_all(class_="mapLink"):
         href = jins.attrs["href"]
         if match_ := re.search(r"../jins/(.*).php", href):
             jins_name = match_.group(1)
-            intervals = " ⇢ ".join(PRETTY_FRACTIONS[x] for x in AJNAS[jins_name])
-            yield jins_template.substitute(name=jins_name, intervals="⇢ " + intervals)
+            intervals = "".join(
+                interval_template.substitute(text=PRETTY_FRACTIONS[x])
+                for x in AJNAS[jins_name]
+            )
+            yield jins_template.substitute(name=jins_name, intervals=intervals)
 
 
 def fetch_maqams() -> Iterable[str]:

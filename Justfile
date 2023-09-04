@@ -9,3 +9,6 @@ make-venv:
 
 generate-requirements:
     {{python}} -m piptools compile --annotation-style line --extra dev -o requirements.txt --strip-extras
+
+watch:
+    watchexec -w download.py -w ./templates python download.py

@@ -8,10 +8,10 @@ dependencies = ["requests", "beautifulsoup4"]
 dev = ["types-requests", "types-beautifulsoup4"]
 
 [tool.ruff]
-line-length = 99
+line-length = 89
 
 [tool.mypy]
 disable_error_code = ["attr-defined"]
 
 [tool.black]
-line-length = 99
+line-length = 89

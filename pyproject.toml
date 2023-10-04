@@ -2,10 +2,6 @@
 name = "maqam-cheatsheet"
 version = "0.0.1"
 requires-python = ">=3.11"
-dependencies = ["requests", "beautifulsoup4"]
-
-[project.optional-dependencies]
-dev = ["types-requests", "types-beautifulsoup4"]
 
 [tool.ruff]
 line-length = 89
@@ -15,3 +11,6 @@ disable_error_code = ["attr-defined"]
 
 [tool.black]
 line-length = 89
+
+[tool.setuptools]
+py-modules = ["maqamat"]

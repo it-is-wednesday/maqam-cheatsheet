@@ -1,0 +1,35 @@
+maqam name,tonic jins,ghammaz option 1,ghammaz option 2
+ajam,ajam,upper_ajam,nahawand
+ajam_ushayran,nahawand,kurd + ajam
+athar_kurd,athar_kurd 3+ hijazkar
+awj_iraq,sikah,hijaz + sikah,
+bastanikar,sikah,saba 3+ hijaz + nikriz
+bayati,bayati,nahawand,rast
+bayati_shuri,bayati,hijaz
+hijaz,hijaz,nahawand,rast
+hijazkar,hijaz,nikriz 3+ hijazkar
+hijazkar_kurd,kurd,nahawand 3+ hijazkar
+huzam,sikah,hijaz + rast
+iraq,sikah,bayati + rast
+jiharkah,jiharkah,upper_rast
+kirdan,rast,upper_rast
+sazkar,sazkar,upper_rast
+kurd,kurd + nahawand
+lami,lami 4+ kurd
+mahur,rast,upper_ajam
+mustaar,mustaar,nahawand + rast
+nahawand,nahawand,hijaz,kurd
+nahawand_murassaa,nahawand_murassaa 4+ hijaz
+nairuz,rast,bayati
+nawa_athar,nikriz 3+ hijazkar
+nikriz,nikriz,nahawand
+rast,rast,upper_rast,nahawand
+saba,saba 3+ hijaz,ajam
+saba_zamzam,saba_zamzam 3+ hijaz,ajam
+kirdan,upper_rast,rast,sazkar
+shawq_afza,ajam,hijaz
+sikah,sikah,upper_rast + rast
+suzdalara,rast,nahawand
+suznak,rast,hijaz
+ushaq_masri,nahawand,bayati
+zanjaran,hijaz,ajam

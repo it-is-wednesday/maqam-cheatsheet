@@ -2,8 +2,8 @@ python := ".venv/bin/python"
 pip := ".venv/bin/pip"
 
 make-venv:
-    python -m venv .venv
-    {{pip}} install -U pip pip-tools
+    test -d .venv || python -m venv .venv
+    test -d .venv/lib/python3.11/site-packages/piptools || {{pip}} install -U pip pip-tools
     just generate-requirements
     {{pip}} install -r requirements.txt
 

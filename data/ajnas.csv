@@ -1,24 +1,24 @@
-jins name,intervals,arabic name,hebrew name
+name,intervals,arabic_name,hebrew_name
 ajam,4 4 2 4,عَجَم,עג'ם
-ajam murassaa,4 4 4 2,عَجَم مُرصّع,עג'ם מוראסע
-athar kurd,2 4 6 2,اثَر كُرد,את'ר כורד
+ajam_murassaa,4 4 4 2,عَجَم مُرصّع,עג'ם מוראסע
+athar_kurd,2 4 6 2,اثَر كُرد,את'ר כורד
 bayati,3 3 4,بياتي,ביאתי
 hijaz,2 6 2,حِجاز,חיג'אז
-hijaz murassaa,2 6 2 2,حِجاز مُرصّع,חיג'אז מוראסע
+hijaz_murassaa,2 6 2 2,حِجاز مُرصّع,חיג'אז מוראסע
 hijazkar,6 2 2 6,حِجاز كار,חיג'אזקאר
 jiharkah,4 4 2 4,جِهاركاه,ג'יהארקה
 kurd,2 4 4,كُرد,כורד
 lami,2 4 4 2,لامي,לאמי
-mukhalif sharqi,3 2,مُخالِف شرقي,מוחאליף שארקי
+mukhalif_sharqi,3 2,مُخالِف شرقي,מוחאליף שארקי
 mustaar,5 2,مُستعار,מוסטאר
 nahawand,4 2 4 4,نَهاوند,נהאוואנד
-nahawand murassaa,4 2 4 2,نَهاوند مُرصّع,נהאוואנד מוראסע
+nahawand_murassaa,4 2 4 2,نَهاوند مُرصّع,נהאוואנד מוראסע
 nikriz,4 2 6 2,نِكريز,נירקיז
 rast,4 3 3 4,راست,רסט
 saba,3 3 2 6 2,صَبا,סבא
-saba dalanshin,3 3 2 6 2,صَبا دَلَنشين,סבא דאלאנשין
-saba zamzam,2 4 2 6 2,صَبا زَمزَم,סבא זמזם
+saba_dalanshin,3 3 2 6 2,صَبا دَلَنشين,סבא דאלאנשין
+saba_zamzam,2 4 2 6 2,صَبا زَمزَم,סבא זמזם
 sazkar,6 1 3 4,سازكار,סאזקאר
 sikah,3 4,سِيكاه,סיקה
-upper ajam,4 4 2,عَجَم اعلى,עג'ם עליון
-upper rast,4 3 3,راست اعلى,רסט עליון
+upper_ajam,4 4 2,عَجَم اعلى,עג'ם עליון
+upper_rast,4 3 3,راست اعلى,רסט עליון

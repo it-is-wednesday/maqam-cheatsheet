@@ -1,24 +1,24 @@
-name,intervals,arabic_name,hebrew_name
-ajam,4 4 2 4,عَجَم,עג'ם
-ajam_murassaa,4 4 4 2,عَجَم مُرصّع,עג'ם מוראסע
-athar_kurd,2 4 6 2,اثَر كُرد,את'ר כורד
-bayati,3 3 4,بياتي,ביאתי
-hijaz,2 6 2,حِجاز,חיג'אז
-hijaz_murassaa,2 6 2 2,حِجاز مُرصّع,חיג'אז מוראסע
-hijazkar,6 2 2 6,حِجاز كار,חיג'אזקאר
-jiharkah,4 4 2 4,جِهاركاه,ג'יהארקה
-kurd,2 4 4,كُرد,כורד
-lami,2 4 4 2,لامي,לאמי
-mukhalif_sharqi,3 2,مُخالِف شرقي,מוחאליף שארקי
-mustaar,5 2,مُستعار,מוסטאר
-nahawand,4 2 4 4,نَهاوند,נהאוואנד
-nahawand_murassaa,4 2 4 2,نَهاوند مُرصّع,נהאוואנד מוראסע
-nikriz,4 2 6 2,نِكريز,נירקיז
-rast,4 3 3 4,راست,רסט
-saba,3 3 2 6 2,صَبا,סבא
-saba_dalanshin,3 3 2 6 2,صَبا دَلَنشين,סבא דאלאנשין
-saba_zamzam,2 4 2 6 2,صَبا زَمزَم,סבא זמזם
-sazkar,6 1 3 4,سازكار,סאזקאר
-sikah,3 4,سِيكاه,סיקה
-upper_ajam,4 4 2,عَجَم اعلى,עג'ם עליון
-upper_rast,4 3 3,راست اعلى,רסט עליון
+name,intervals
+ajam,4 4 2 4
+ajam_murassaa,4 4 4 2
+athar_kurd,2 4 6 2
+bayati,3 3 4
+hijaz,2 6 2
+hijaz_murassaa,2 6 2 2
+hijazkar,6 2 2 6
+jiharkah,4 4 2 4
+kurd,2 4 4
+lami,2 4 4 2
+mukhalif_sharqi,3 2
+mustaar,5 2
+nahawand,4 2 4 4
+nahawand_murassaa,4 2 4 2
+nikriz,4 2 6 2
+rast,4 3 3 4
+saba,3 3 2 6 2
+saba_dalanshin,3 3 2 6 2
+saba_zamzam,2 4 2 6 2
+sazkar,6 1 3 4
+sikah,3 4
+upper_ajam,4 4 2
+upper_rast,4 3 3

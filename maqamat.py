@@ -1,5 +1,6 @@
 import csv
 import re
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from string import Template
@@ -99,12 +100,16 @@ def ajnas_tags_in_maqam(maqam: Maqam, ajnas: Ajnas) -> Iterable[str]:
     >>> m = Maqam(name='hijazkar', tonic='hijaz', ghammaz_option1='nikriz 3+ hijazkar')
     >>> print(''.join(ajnas_tags_in_maqam(m, ajnas)))
     <div class="jins">
-        <h3>hijaz</h3>
-        <div class="jins-intervals">½ ⇨ 1½ ⇨ ½</div>
+      <h3>hijaz</h3>
+      <div class="jins-intervals">
+        ½ ⇨ 1½ ⇨ ½
+      </div>
     </div>
     <div class="jins">
-        <h3>nikriz 3+ hijazkar</h3>
-        <div class="jins-intervals">1 ⇨ ½ ⇨ 1½ ⇨ ½ ⇨ ½ ⇨ 1½</div>
+      <h3>nikriz 3+ hijazkar</h3>
+      <div class="jins-intervals">
+        1 ⇨ ½ ⇨ 1½ ⇨ ½ ⇨ ½ ⇨ 1½
+      </div>
     </div>
     <BLANKLINE>
     """
@@ -132,18 +137,25 @@ def make_html():
     maqamat_tags = "".join(
         maqam_template.substitute(
             name=name,
-            ajnas="".join(ajnas_tags_in_maqam(maqam, ajnas)),
+            ajnas="".join(ajnas_tags_in_maqam(maqam, ajnas)).strip(),
         )
         for (name, maqam) in get_maqamat(ajnas).items()
     )
 
-    main = get_template("index").substitute(maqamat=maqamat_tags)
+    main = get_template("index").substitute(maqamat=maqamat_tags.strip())
 
     return main
 
 
 def main():
-    print(make_html())
+    with open("out.html", "w") as f:
+        proc = subprocess.run(
+            args=["tidy", "-indent", "--tidy-mark", "no"],
+            capture_output=True,
+            text=True,
+            input=make_html()
+        )
+        f.write(proc.stdout)
 
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@ import csv
 import re
 import subprocess
 from dataclasses import dataclass
-from pathlib import Path
-from string import Template
 from typing import Any, Optional
+
+from jinja2 import Environment, PackageLoader, select_autoescape
 
 PRETTY_FRACTIONS = {
     1: "¼",
@@ -22,6 +22,9 @@ ARROW = " ⇨ "
 class Jins:
     name: str
     intervals: list[int]
+
+    def pretty_intervals(self) -> str:
+        return ARROW.join(PRETTY_FRACTIONS[i] for i in self.intervals)
 
 
 @dataclass
@@ -86,38 +89,20 @@ def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
     return Jins(comb, intervals)
 
 
-def get_template(name: str) -> Template:
-    return Template(Path(f"templates/{name}.html").read_text())
-
-
-def make_ajnas_tags_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> str:
-    jins_template = get_template("jins-tag")
-    result = ""
-    for jins in [
-        maqam.tonic,
-        maqam.ghammaz_option1,
-        maqam.ghammaz_option2,
-    ]:
-        if jins:
-            result += jins_template.substitute(
-                name=jins.name,
-                intervals=ARROW.join(
-                    PRETTY_FRACTIONS[i] for i in jins.intervals
-                ),
-            )
-    return result.strip()
-
-
 def make_html() -> str:
     ajnas_dict = get_ajnas()
     maqamat = get_maqamat(ajnas_dict)
 
-    print("{:^20}{:^20}{:^20}{:^20}".format(
-        "maqam",
-        "tonic",
-        "ghammaz1",
-        "ghammaz2"
-    ))
+    jinja_env = Environment(
+        loader=PackageLoader("maqamat"),
+        autoescape=select_autoescape(),
+    )
+
+    print(
+        "{:^20}{:^20}{:^20}{:^20}".format(
+            "maqam", "tonic", "ghammaz1", "ghammaz2"
+        )
+    )
     for maqam in maqamat:
         print(
             "{:^20}{:^20}{:^20}{:^20}".format(
@@ -134,18 +119,8 @@ def make_html() -> str:
             )
         )
 
-    maqam_template = get_template("maqam-tag")
-    maqamat_tags = "".join(
-        maqam_template.substitute(
-            name=maqam.name,
-            ajnas=make_ajnas_tags_in_maqam(maqam, ajnas_dict),
-        )
-        for maqam in maqamat
-    )
-
-    main = get_template("index").substitute(maqamat=maqamat_tags.strip())
-
-    return main
+    template = jinja_env.get_template("index.html")
+    return template.render(maqamat=maqamat)
 
 
 def main() -> None:

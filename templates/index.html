@@ -1,5 +1,7 @@
+<!-- -*- engine:jinja2 -*- -->
 <html>
   <head>
+    <title>maqamat</title>
     <style>
       .main {
         display: flex;
@@ -17,12 +19,12 @@
       }
       .jins-intervals {
         display: flex;
-          gap: 0.3em;
+        gap: 0.3em;
       }
       .jins-intervals-item {
         display: flex;
         flex-wrap: nowrap;
-          gap: 0.3em;
+        gap: 0.3em;
       }
       .maqam {
         max-width: 30%;
@@ -30,16 +32,36 @@
       }
       .ajnas {
         display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: center;
-          column-gap: 2em;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 2em;
       }
     </style>
   </head>
   <body>
     <div class="main">
-      $maqamat
+      {% for maqam in maqamat %}
+        <div class="maqam">
+          <h3>{{ maqam.name }}</h3>
+          <div class="ajnas">
+            {% for jins in [
+              maqam.tonic,
+              maqam.ghammaz_option1,
+              maqam.ghammaz_option2
+            ] %}
+              {% if jins %}
+                <div class="jins">
+                  <h3>{{ jins.name }}</h3>
+                  <div class="jins-intervals">
+                    {{ jins.pretty_intervals() }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </body>
 </html>

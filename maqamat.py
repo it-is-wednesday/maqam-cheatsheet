@@ -46,10 +46,10 @@ def get_ajnas() -> Ajnas:
         }
 
 
-def get_maqamat(ajnas: Ajnas) -> dict[str, Maqam]:
+def get_maqamat(ajnas: Ajnas) -> list[Maqam]:
     with open("data/maqamat.csv", newline="") as csvfile:
-        return {
-            row["name"]: Maqam(
+        return [
+            Maqam(
                 row["name"],
                 parse_jins_combination(row["tonic"], ajnas),
                 parse_jins_combination(g, ajnas)
@@ -60,7 +60,7 @@ def get_maqamat(ajnas: Ajnas) -> dict[str, Maqam]:
                 else None,
             )
             for row in csv.DictReader(csvfile)
-        }
+        ]
 
 
 def pairs(iterable: list[Any]) -> list[tuple[Any, Any]]:
@@ -110,14 +110,37 @@ def make_ajnas_tags_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> str:
 
 def make_html() -> str:
     ajnas_dict = get_ajnas()
+    maqamat = get_maqamat(ajnas_dict)
+
+    print("{:^20}{:^20}{:^20}{:^20}".format(
+        "maqam",
+        "tonic",
+        "ghammaz1",
+        "ghammaz2"
+    ))
+    for maqam in maqamat:
+        print(
+            "{:^20}{:^20}{:^20}{:^20}".format(
+                maqam.name,
+                sum(maqam.tonic.intervals)
+                if not maqam.ghammaz_option1 and not maqam.ghammaz_option2
+                else "",
+                sum(maqam.tonic.intervals) + sum(g.intervals)
+                if (g := maqam.ghammaz_option1)
+                else "",
+                sum(maqam.tonic.intervals) + sum(g.intervals)
+                if (g := maqam.ghammaz_option2)
+                else "",
+            )
+        )
 
     maqam_template = get_template("maqam-tag")
     maqamat_tags = "".join(
         maqam_template.substitute(
-            name=name,
+            name=maqam.name,
             ajnas=make_ajnas_tags_in_maqam(maqam, ajnas_dict),
         )
-        for (name, maqam) in get_maqamat(ajnas_dict).items()
+        for maqam in maqamat
     )
 
     main = get_template("index").substitute(maqamat=maqamat_tags.strip())

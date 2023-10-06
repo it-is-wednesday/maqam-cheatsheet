@@ -5,7 +5,7 @@ athar_kurd,2 4 6 2
 bayati,3 3 4
 hijaz,2 6 2
 hijaz_murassaa,2 6 2 2
-hijazkar,6 2 2 6
+hijazkar,6 2 2 6 2
 jiharkah,4 4 2 4
 kurd,2 4 4
 lami,2 4 4 2
@@ -22,3 +22,4 @@ sazkar,6 1 3 4
 sikah,3 4
 upper_ajam,4 4 2
 upper_rast,4 3 3
+extra_tone,4

@@ -4,7 +4,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from string import Template
-from typing import Any, Iterable, Optional
+from typing import Any, Optional
 
 PRETTY_FRACTIONS = {
     1: "¼",
@@ -27,9 +27,9 @@ class Jins:
 @dataclass
 class Maqam:
     name: str
-    tonic: str
-    ghammaz_option1: Optional[str] = None
-    ghammaz_option2: Optional[str] = None
+    tonic: Jins
+    ghammaz_option1: Optional[Jins] = None
+    ghammaz_option2: Optional[Jins] = None
 
 
 Ajnas = dict[str, Jins]
@@ -48,7 +48,19 @@ def get_ajnas() -> Ajnas:
 
 def get_maqamat(ajnas: Ajnas) -> dict[str, Maqam]:
     with open("data/maqamat.csv", newline="") as csvfile:
-        return {row["name"]: Maqam(**row) for row in csv.DictReader(csvfile)}
+        return {
+            row["name"]: Maqam(
+                row["name"],
+                parse_jins_combination(row["tonic"], ajnas),
+                parse_jins_combination(g, ajnas)
+                if (g := row["ghammaz_option1"])
+                else None,
+                parse_jins_combination(g, ajnas)
+                if (g := row["ghammaz_option2"])
+                else None,
+            )
+            for row in csv.DictReader(csvfile)
+        }
 
 
 def pairs(iterable: list[Any]) -> list[tuple[Any, Any]]:
@@ -64,9 +76,6 @@ def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
     >>> parse_jins_combination('saba3 + hijaz + nikriz', get_ajnas())
     Jins(name='saba3 + hijaz + nikriz', intervals=[3, 3, 2, 6, 2, 4, 2, 6, 2])
     """
-    if "+" not in comb:
-        return Jins(comb, ajnas[comb].intervals)
-
     intervals = []
     for jins_raw in comb.split(" + "):
         if match_ := re.search(r"([a-z_]+)(\d)?", jins_raw):
@@ -81,27 +90,22 @@ def get_template(name: str) -> Template:
     return Template(Path(f"templates/{name}.html").read_text())
 
 
-def segments_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> Iterable[Jins]:
-    for jins_name in [
+def make_ajnas_tags_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> str:
+    jins_template = get_template("jins-tag")
+    result = ""
+    for jins in [
         maqam.tonic,
         maqam.ghammaz_option1,
         maqam.ghammaz_option2,
     ]:
-        if jins_name:
-            yield parse_jins_combination(jins_name, ajnas_dict)
-
-
-def make_ajnas_tags_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> str:
-    jins_template = get_template("jins-tag")
-    return "".join(
-        jins_template.substitute(
-            name=segment.name,
-            intervals=ARROW.join(
-                PRETTY_FRACTIONS[i] for i in segment.intervals
-            ),
-        )
-        for segment in segments_in_maqam(maqam, ajnas_dict)
-    ).strip()
+        if jins:
+            result += jins_template.substitute(
+                name=jins.name,
+                intervals=ARROW.join(
+                    PRETTY_FRACTIONS[i] for i in jins.intervals
+                ),
+            )
+    return result.strip()
 
 
 def make_html() -> str:

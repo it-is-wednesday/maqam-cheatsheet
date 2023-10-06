@@ -1,7 +1,7 @@
 from textwrap import dedent
 
-from maqamat import (Jins, Maqam, get_ajnas, make_ajnas_tags_in_maqam, pairs,
-                     parse_jins_combination, segments_in_maqam)
+from maqamat import (Jins, Maqam, get_ajnas, make_ajnas_tags_in_maqam,
+                     parse_jins_combination)
 
 ajnas_dict = get_ajnas()
 sample_maqam = Maqam(
@@ -21,13 +21,6 @@ def test_parse_jins_combination() -> None:
     name = "ajam3 + kurd + nahawand3"
     expected = Jins(name, intervals=[4, 4, 2, 4, 4, 4, 2])
     assert expected == parse_jins_combination(name, ajnas_dict)
-
-
-def test_segments_in_maqam() -> None:
-    assert list(segments_in_maqam(sample_maqam, ajnas_dict)) == [
-        Jins(name="hijaz", intervals=[2, 6, 2]),
-        Jins(name="nikriz3 + hijazkar", intervals=[4, 2, 6, 2, 2, 6]),
-    ]
 
 
 def test_make_ajnas_tags_in_maqam() -> None:

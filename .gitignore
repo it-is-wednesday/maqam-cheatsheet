@@ -1,3 +1,4 @@
 *.egg-info
 maqam-pages-cache
 out.html
+dist

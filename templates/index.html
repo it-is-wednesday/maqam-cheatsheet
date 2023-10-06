@@ -1,9 +1,20 @@
 <!-- -*- engine:jinja2 -*- -->
+{% set notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] %}
+
 <html>
   <head>
     <title>maqamat</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+     function makeNotesState() {
+       return Object.fromEntries({{ notes }}.map(n => [n, false]));
+     }
+    </script>
     <style>
-      .main {
+      .maqamat {
         display: flex;
         flex-wrap: wrap;
         column-gap: 5%;
@@ -37,10 +48,23 @@
         justify-content: center;
         column-gap: 2em;
       }
+      .note-selected {
+        background: teal;
+      }
     </style>
   </head>
-  <body>
-    <div class="main">
+  <body x-data="{ notes: makeNotesState() }">
+    <div class="controls">
+      {% for note in notes %}
+        <button
+          class="note-button"
+          x-on:click="notes['{{ note }}'] = !notes['{{ note }}']"
+          x-bind:class="notes['{{ note }}'] && 'note-selected'">
+          {{ note }}
+        </button>
+      {% endfor %}
+    </div>
+    <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam">
           <h3>{{ maqam.name }}</h3>

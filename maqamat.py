@@ -95,7 +95,7 @@ def make_html() -> str:
 
     jinja_env = Environment(
         loader=PackageLoader("maqamat"),
-        autoescape=select_autoescape(),
+        autoescape=False,
     )
 
     print(
@@ -125,13 +125,7 @@ def make_html() -> str:
 
 def main() -> None:
     with open("out.html", "w") as f:
-        proc = subprocess.run(
-            args=["tidy", "-indent", "--tidy-mark", "no"],
-            capture_output=True,
-            text=True,
-            input=make_html(),
-        )
-        f.write(proc.stdout)
+        f.write(make_html())
 
 
 if __name__ == "__main__":

@@ -6,8 +6,11 @@ from maqamat import (Jins, Maqam, get_ajnas, make_ajnas_tags_in_maqam,
 ajnas_dict = get_ajnas()
 sample_maqam = Maqam(
     name="hijazkar",
-    tonic="hijaz",
-    ghammaz_option1="nikriz3 + hijazkar",
+    tonic=Jins(name="hijaz", intervals=[2, 6, 2]),
+    ghammaz_option1=Jins(
+        name="nikriz3 + hijazkar",
+        intervals=[4, 2, 6, 2, 2, 6],
+    ),
 )
 
 

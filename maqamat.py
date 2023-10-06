@@ -25,7 +25,8 @@ class Jins:
     intervals: list[int]
 
     def pretty_intervals(self) -> str:
-        return ARROW.join(PRETTY_FRACTIONS[i] for i in self.intervals)
+        joined = ARROW.join(PRETTY_FRACTIONS[i] for i in self.intervals)
+        return ARROW.lstrip() + joined
 
 
 def intervals_binary(intervals: list[int]) -> int:

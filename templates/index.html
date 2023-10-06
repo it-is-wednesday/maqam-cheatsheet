@@ -1,5 +1,7 @@
 <!-- -*- engine:jinja2 -*- -->
-{% set notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] %}
+{% set notes = ["C", "C↓", "C#", "C#↓", "D", "D↓", "D#", "D#↓", "E",
+                "E↓", "F", "F↓", "F#", "F#↓", "G", "G↓", "G#", "G#↓",
+                "A", "A↓", "A#", "A#↓", "B", "B↓"] %}
 
 <!DOCTYPE html>
 <html>
@@ -11,8 +13,10 @@
     ></script>
     <script>
      function makeNotesState() {
-       return Object.fromEntries({{ notes }}.map(n => [n, false]));
+       return Object.fromEntries([...Array(24).keys()]
+         .map(n => [2 ** (24 - n - 1), false]));
      }
+
      const maqamat = {
        {% for maqam in maqamat -%}
          {{ maqam.name }}: [
@@ -22,12 +26,24 @@
          ],
        {% endfor -%}
      }
-     function find(intervalsBinary) {
+
+     function calculateBinaryRepr(selectedNotes) {
+       let result = 0;
+       for (const note of Object.keys(selectedNotes)) {
+         if (selectedNotes[note]) {
+           result += parseInt(note);
+         }
+       }
+       return result;
+     }
+
+     function findMatchingMaqamat(intervalsBinary) {
        const results = [];
        for (const maqamName of Object.keys(maqamat)) {
          for (const variation of maqamat[maqamName]) {
            if ((variation | intervalsBinary) == variation) {
              results.push(maqamName)
+             break;
            }
          }
        }
@@ -75,12 +91,14 @@
     </style>
   </head>
   <body x-data="{ notes: makeNotesState() }">
+    <span x-text="findMatchingMaqamat(calculateBinaryRepr(notes))"></span>
     <div class="controls">
       {% for note in notes %}
+        {% set i = 2 ** (24 - loop.index0 - 1) %}
         <button
           class="note-button"
-          x-on:click="notes['{{ note }}'] = !notes['{{ note }}']"
-          x-bind:class="notes['{{ note }}'] && 'note-selected'">
+          x-on:click="notes[{{ i }}] = !notes[{{ i }}]"
+          x-bind:class="notes[{{ i }}] && 'note-selected'">
           {{ note }}
         </button>
       {% endfor %}

@@ -4,7 +4,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from string import Template
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Any
 
 PRETTY_FRACTIONS = {
     1: "¼",
@@ -51,7 +51,7 @@ def get_maqamat(ajnas: Ajnas) -> dict[str, Maqam]:
         return {row["name"]: Maqam(**row) for row in csv.DictReader(csvfile)}
 
 
-def pairs(iterable):
+def pairs(iterable: list[Any]) -> list[tuple[Any, Any]]:
     """
     >>> pairs([1, 2, 3, 4, 5, 6])
     [(1, 2), (3, 4), (5, 6)]
@@ -70,14 +70,14 @@ def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
     Jins(name='ajam3 + kurd + nahawand3', intervals=[4, 4, 2, 4, 4, 4, 2])
     """
     if "+" not in comb:
-        intervals = ajnas[comb].intervals
-    else:
-        intervals = []
-        for jins_raw in comb.split(" + "):
-            jins, overlap = re.search(r"([a-z_]+)(\d)?", jins_raw).groups()
+        return Jins(comb, ajnas[comb].intervals)
+
+    intervals = []
+    for jins_raw in comb.split(" + "):
+        if match_ := re.search(r"([a-z_]+)(\d)?", jins_raw):
+            jins, overlap = match_.groups()
             jins_intervals = ajnas[jins].intervals
             overlap = int(overlap or len(jins_intervals) + 1)
-            # print(jins_raw, overlap)
             intervals.extend(jins_intervals[: overlap - 1])
     return Jins(comb, intervals)
 
@@ -86,22 +86,31 @@ def get_template(name: str) -> Template:
     return Template(Path(f"templates/{name}.html").read_text())
 
 
-def prettify_combination_intervals(jins_name: str, ajnas: Ajnas) -> list[str]:
+def segments_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> Iterable[Jins]:
     """
-    >>> prettify_combination_intervals("nikriz3 + hijazkar", ajnas=get_ajnas())
-    ['1', '½', '1½', '½', '½', '1½']
+    >>> ajnas_dict = get_ajnas()
+    >>> m = Maqam(name='hijazkar', tonic='hijaz',
+    ...           ghammaz_option1='nikriz3 + hijazkar')
+    >>> from pprint import pprint
+    >>> pprint(list(segments_in_maqam(m, ajnas_dict)))
+    [Jins(name='hijaz', intervals=[2, 6, 2]),
+     Jins(name='nikriz3 + hijazkar', intervals=[4, 2, 6, 2, 2, 6])]
     """
-    return [
-        PRETTY_FRACTIONS[j]
-        for j in parse_jins_combination(jins_name, ajnas).intervals
-    ]
+    for jins_name in [
+        maqam.tonic,
+        maqam.ghammaz_option1,
+        maqam.ghammaz_option2,
+    ]:
+        if jins_name:
+            yield parse_jins_combination(jins_name, ajnas_dict)
 
 
-def ajnas_tags_in_maqam(maqam: Maqam, ajnas: Ajnas) -> Iterable[str]:
+def make_ajnas_tags_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> str:
     """
-    >>> ajnas = get_ajnas()
-    >>> m = Maqam(name='hijazkar', tonic='hijaz', ghammaz_option1='nikriz3 + hijazkar')
-    >>> print(''.join(ajnas_tags_in_maqam(m, ajnas)))
+    >>> ajnas_dict = get_ajnas()
+    >>> m = Maqam(name='hijazkar', tonic='hijaz',
+    ...           ghammaz_option1='nikriz3 + hijazkar')
+    >>> print("".join(make_ajnas_tags_in_maqam(m, ajnas_dict)))
     <div class="jins">
       <h3>hijaz</h3>
       <div class="jins-intervals">
@@ -114,35 +123,29 @@ def ajnas_tags_in_maqam(maqam: Maqam, ajnas: Ajnas) -> Iterable[str]:
         1 ⇨ ½ ⇨ 1½ ⇨ ½ ⇨ ½ ⇨ 1½
       </div>
     </div>
-    <BLANKLINE>
     """
-
     jins_template = get_template("jins-tag")
-
-    for jins_name in [
-        maqam.tonic,
-        maqam.ghammaz_option1,
-        maqam.ghammaz_option2,
-    ]:
-        if jins_name:
-            yield jins_template.substitute(
-                name=jins_name,
-                intervals=ARROW.join(
-                    prettify_combination_intervals(jins_name, ajnas)
-                ),
-            )
+    return "".join(
+        jins_template.substitute(
+            name=segment.name,
+            intervals=ARROW.join(
+                PRETTY_FRACTIONS[i] for i in segment.intervals
+            ),
+        )
+        for segment in segments_in_maqam(maqam, ajnas_dict)
+    ).strip()
 
 
-def make_html():
-    ajnas = get_ajnas()
+def make_html() -> str:
+    ajnas_dict = get_ajnas()
 
     maqam_template = get_template("maqam-tag")
     maqamat_tags = "".join(
         maqam_template.substitute(
             name=name,
-            ajnas="".join(ajnas_tags_in_maqam(maqam, ajnas)).strip(),
+            ajnas=make_ajnas_tags_in_maqam(maqam, ajnas_dict),
         )
-        for (name, maqam) in get_maqamat(ajnas).items()
+        for (name, maqam) in get_maqamat(ajnas_dict).items()
     )
 
     main = get_template("index").substitute(maqamat=maqamat_tags.strip())
@@ -150,7 +153,7 @@ def make_html():
     return main
 
 
-def main():
+def main() -> None:
     with open("out.html", "w") as f:
         proc = subprocess.run(
             args=["tidy", "-indent", "--tidy-mark", "no"],

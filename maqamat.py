@@ -64,17 +64,20 @@ def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
     >>> ajnas = get_ajnas()
     >>> parse_jins_combination('hijaz', ajnas)
     Jins(name='hijaz', intervals=[2, 6, 2])
-    >>> parse_jins_combination('saba 3+ hijaz', ajnas)
-    Jins(name='saba 3+ hijaz', intervals=[3, 3, 2, 6, 2])
-    >>>
+    >>> parse_jins_combination('saba3 + hijaz', ajnas)
+    Jins(name='saba3 + hijaz', intervals=[3, 3, 2, 6, 2])
+    >>> parse_jins_combination('ajam3 + kurd + nahawand3', ajnas)
+    Jins(name='ajam3 + kurd + nahawand3', intervals=[4, 4, 2, 4, 4, 4, 2])
     """
     if "+" not in comb:
         intervals = ajnas[comb].intervals
     else:
         intervals = []
-        for jins, overlap in pairs(re.split(r" (\d)?\+ ", comb) + [None]):
+        for jins_raw in comb.split(" + "):
+            jins, overlap = re.search(r"([a-z_]+)(\d)?", jins_raw).groups()
             jins_intervals = ajnas[jins].intervals
             overlap = int(overlap or len(jins_intervals) + 1)
+            # print(jins_raw, overlap)
             intervals.extend(jins_intervals[: overlap - 1])
     return Jins(comb, intervals)
 
@@ -85,7 +88,7 @@ def get_template(name: str) -> Template:
 
 def prettify_combination_intervals(jins_name: str, ajnas: Ajnas) -> list[str]:
     """
-    >>> prettify_combination_intervals("nikriz 3+ hijazkar", ajnas=get_ajnas())
+    >>> prettify_combination_intervals("nikriz3 + hijazkar", ajnas=get_ajnas())
     ['1', '½', '1½', '½', '½', '1½']
     """
     return [
@@ -97,7 +100,7 @@ def prettify_combination_intervals(jins_name: str, ajnas: Ajnas) -> list[str]:
 def ajnas_tags_in_maqam(maqam: Maqam, ajnas: Ajnas) -> Iterable[str]:
     """
     >>> ajnas = get_ajnas()
-    >>> m = Maqam(name='hijazkar', tonic='hijaz', ghammaz_option1='nikriz 3+ hijazkar')
+    >>> m = Maqam(name='hijazkar', tonic='hijaz', ghammaz_option1='nikriz3 + hijazkar')
     >>> print(''.join(ajnas_tags_in_maqam(m, ajnas)))
     <div class="jins">
       <h3>hijaz</h3>
@@ -106,7 +109,7 @@ def ajnas_tags_in_maqam(maqam: Maqam, ajnas: Ajnas) -> Iterable[str]:
       </div>
     </div>
     <div class="jins">
-      <h3>nikriz 3+ hijazkar</h3>
+      <h3>nikriz3 + hijazkar</h3>
       <div class="jins-intervals">
         1 ⇨ ½ ⇨ 1½ ⇨ ½ ⇨ ½ ⇨ 1½
       </div>
@@ -153,7 +156,7 @@ def main():
             args=["tidy", "-indent", "--tidy-mark", "no"],
             capture_output=True,
             text=True,
-            input=make_html()
+            input=make_html(),
         )
         f.write(proc.stdout)
 

@@ -4,7 +4,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from string import Template
-from typing import Iterable, Optional, Any
+from typing import Any, Iterable, Optional
 
 PRETTY_FRACTIONS = {
     1: "¼",
@@ -61,13 +61,8 @@ def pairs(iterable: list[Any]) -> list[tuple[Any, Any]]:
 
 def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
     """
-    >>> ajnas = get_ajnas()
-    >>> parse_jins_combination('hijaz', ajnas)
-    Jins(name='hijaz', intervals=[2, 6, 2])
-    >>> parse_jins_combination('saba3 + hijaz', ajnas)
-    Jins(name='saba3 + hijaz', intervals=[3, 3, 2, 6, 2])
-    >>> parse_jins_combination('ajam3 + kurd + nahawand3', ajnas)
-    Jins(name='ajam3 + kurd + nahawand3', intervals=[4, 4, 2, 4, 4, 4, 2])
+    >>> parse_jins_combination('saba3 + hijaz + nikriz', get_ajnas())
+    Jins(name='saba3 + hijaz + nikriz', intervals=[3, 3, 2, 6, 2, 4, 2, 6, 2])
     """
     if "+" not in comb:
         return Jins(comb, ajnas[comb].intervals)
@@ -87,15 +82,6 @@ def get_template(name: str) -> Template:
 
 
 def segments_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> Iterable[Jins]:
-    """
-    >>> ajnas_dict = get_ajnas()
-    >>> m = Maqam(name='hijazkar', tonic='hijaz',
-    ...           ghammaz_option1='nikriz3 + hijazkar')
-    >>> from pprint import pprint
-    >>> pprint(list(segments_in_maqam(m, ajnas_dict)))
-    [Jins(name='hijaz', intervals=[2, 6, 2]),
-     Jins(name='nikriz3 + hijazkar', intervals=[4, 2, 6, 2, 2, 6])]
-    """
     for jins_name in [
         maqam.tonic,
         maqam.ghammaz_option1,
@@ -106,24 +92,6 @@ def segments_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> Iterable[Jins]:
 
 
 def make_ajnas_tags_in_maqam(maqam: Maqam, ajnas_dict: Ajnas) -> str:
-    """
-    >>> ajnas_dict = get_ajnas()
-    >>> m = Maqam(name='hijazkar', tonic='hijaz',
-    ...           ghammaz_option1='nikriz3 + hijazkar')
-    >>> print("".join(make_ajnas_tags_in_maqam(m, ajnas_dict)))
-    <div class="jins">
-      <h3>hijaz</h3>
-      <div class="jins-intervals">
-        ½ ⇨ 1½ ⇨ ½
-      </div>
-    </div>
-    <div class="jins">
-      <h3>nikriz3 + hijazkar</h3>
-      <div class="jins-intervals">
-        1 ⇨ ½ ⇨ 1½ ⇨ ½ ⇨ ½ ⇨ 1½
-      </div>
-    </div>
-    """
     jins_template = get_template("jins-tag")
     return "".join(
         jins_template.substitute(

@@ -1,10 +1,11 @@
 import csv
 import re
-import subprocess
 from dataclasses import dataclass
+from itertools import accumulate
+from operator import add
 from typing import Any, Optional
 
-from jinja2 import Environment, PackageLoader, select_autoescape
+from jinja2 import Environment, PackageLoader
 
 PRETTY_FRACTIONS = {
     1: "¼",
@@ -27,12 +28,34 @@ class Jins:
         return ARROW.join(PRETTY_FRACTIONS[i] for i in self.intervals)
 
 
+def intervals_binary(intervals: list[int]) -> int:
+    """
+    >>> 0b001000000000000000000000 == intervals_binary([2])
+    True
+    >>> 0b101000001000100000100100 == intervals_binary([2, 6, 4, 6, 3, 3])
+    True
+    """
+    return sum(2 ** ((24 - num - 1) % 24) for num in accumulate(intervals, add))
+
+
 @dataclass
 class Maqam:
     name: str
     tonic: Jins
     ghammaz_option1: Optional[Jins] = None
     ghammaz_option2: Optional[Jins] = None
+
+    def to_binary(self) -> list[int]:
+        t = self.tonic.intervals
+        result = [intervals_binary(t)]
+
+        if g := self.ghammaz_option1:
+            result.append(intervals_binary(t + g.intervals))
+
+        if g := self.ghammaz_option2:
+            result.append(intervals_binary(t + g.intervals))
+
+        return result
 
 
 Ajnas = dict[str, Jins]

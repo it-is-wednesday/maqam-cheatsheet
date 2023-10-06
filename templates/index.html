@@ -1,6 +1,7 @@
 <!-- -*- engine:jinja2 -*- -->
 {% set notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] %}
 
+<!DOCTYPE html>
 <html>
   <head>
     <title>maqamat</title>
@@ -11,6 +12,26 @@
     <script>
      function makeNotesState() {
        return Object.fromEntries({{ notes }}.map(n => [n, false]));
+     }
+     const maqamat = {
+       {% for maqam in maqamat -%}
+         {{ maqam.name }}: [
+         {% for variation in maqam.to_binary() -%}
+           {{ variation }},
+         {%- endfor -%}
+         ],
+       {% endfor -%}
+     }
+     function find(intervalsBinary) {
+       const results = [];
+       for (const maqamName of Object.keys(maqamat)) {
+         for (const variation of maqamat[maqamName]) {
+           if ((variation | intervalsBinary) == variation) {
+             results.push(maqamName)
+           }
+         }
+       }
+       return results
      }
     </script>
     <style>

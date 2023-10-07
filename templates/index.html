@@ -38,15 +38,19 @@
      }
 
      function findMatchingMaqamat(intervalsBinary) {
-       const results = [];
+       const results = Object.fromEntries(Object.keys(maqamat).map(m => [m, []]));
        for (const maqamName of Object.keys(maqamat)) {
          for (const variation of maqamat[maqamName]) {
-           let adjusted = variation;
+           let adjusted;
            {{ notes }}.forEach((note, i) => {
              const carry = adjusted & (2 ** 23);
-             adjusted = ((adjusted - carry) << 1) + (carry == 0 ? 0 : 1);
+             if (adjusted) {
+               adjusted = ((adjusted - carry) << 1) + (carry == 0 ? 0 : 1);
+             } else {
+               adjusted = variation;
+             }
              if ((adjusted | intervalsBinary) == adjusted) {
-               results.push(note + " " + maqamName)
+               results[maqamName].push(note);
              }
            })
          }
@@ -94,23 +98,30 @@
       }
     </style>
   </head>
-  <body x-data="{ notes: makeNotesState() }">
-    <span x-text="findMatchingMaqamat(calculateBinaryRepr(notes))"></span>
+  <body x-init="refreshMatches()" x-data="{
+    notes: makeNotesState(),
+    matches: [],
+    refreshMatches() { this.matches = findMatchingMaqamat(calculateBinaryRepr(this.notes)) }
+  }">
     <div class="controls">
       {% for note in notes %}
         {% set i = 2 ** (24 - loop.index0 - 1) %}
         <button
           class="note-button"
-          x-on:click="notes[{{ i }}] = !notes[{{ i }}]"
+          x-on:click="notes[{{ i }}] = !notes[{{ i }}]; refreshMatches()"
           x-bind:class="notes[{{ i }}] && 'note-selected'">
           {{ note }}
         </button>
       {% endfor %}
+      <br/>
+      <span x-text="JSON.stringify(matches)"></span>
     </div>
     <div class="maqamat">
       {% for maqam in maqamat %}
-        <div class="maqam">
+        <!-- <div x-text="matches[{{ maqam.name }}].length > 0"> -->
+        <div class="maqam" x-show="matches['{{ maqam.name }}'].length > 0">
           <h3>{{ maqam.name }}</h3>
+          <div x-text="matches['{{ maqam.name }}']"></div>
           <div class="ajnas">
             {% for jins in [
               maqam.tonic,

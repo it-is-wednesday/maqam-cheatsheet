@@ -148,7 +148,7 @@ def make_html() -> str:
 
 
 def main() -> None:
-    with open("out.html", "w") as f:
+    with open("static/index.html", "w") as f:
         f.write(make_html())
 
 

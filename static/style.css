@@ -1,0 +1,45 @@
+.maqamat {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 5%;
+}
+
+.maqam-img {
+  max-width: 100%;
+}
+
+.jins-img {
+  max-width: 100%;
+}
+
+.jins {
+  max-width: 100%;
+}
+
+.jins-intervals {
+  display: flex;
+  gap: 0.3em;
+}
+
+.jins-intervals-item {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.3em;
+}
+
+.maqam {
+  max-width: 30%;
+  padding-bottom: 6em;
+}
+
+.ajnas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 2em;
+}
+
+.note-selected {
+  background: teal;
+}

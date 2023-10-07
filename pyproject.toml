@@ -9,14 +9,14 @@ dependencies = ["jinja2"]
 dev = ["pytest", "types-jinja2"]
 
 [tool.ruff]
-line-length = 79
+line-length = 80
 
 [tool.mypy]
 disable_error_code = ["attr-defined"]
 strict = true
 
 [tool.black]
-line-length = 79
+line-length = 80
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]

@@ -39,18 +39,20 @@
     },
   }"
         x-init="refreshMatches()">
-    <div class="controls">
+    <div id="keyboard">
       {% for note in notes %}
-        {% set i = 2 ** (24 - loop.index0 - 1) %}
-        <button
-          class="note-button"
-          x-on:click="notes[{{ i }}] = !notes[{{ i }}]; refreshMatches()"
-          x-bind:class="notes[{{ i }}] && 'note-selected'">
-          {{ note }}
-        </button>
+        {% if "↓" not in note %}
+          {% set i = 2 ** (24 - loop.index0 - 1) %}
+          {% set color = 'black' if '#' in note else 'white' %}
+          <div class="key {{ color }} {{ note.replace('#', '_sharp').lower() }}"
+             data-note="{{ note }}"
+             x-on:click="notes[{{ i }}] = !notes[{{ i }}]; refreshMatches()"
+             x-bind:class="notes[{{ i }}] ? 'note-selected' : 'bg-{{ color }}'">
+          </div>
+        {% endif %}
       {% endfor %}
-      <br/>
     </div>
+
     <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">

@@ -43,3 +43,46 @@
 .note-selected {
   background: teal;
 }
+
+
+.key {
+  float: left;
+  position: relative;
+}
+
+#keyboard {
+    height: 10.2em;
+    width: 20.2em;
+}
+
+.white {
+  height: 10em;
+  width: 3em;
+  z-index: 1;
+  border-top: 0.12vw solid #AAAAAA;
+  border-bottom: 0.12vw solid #AAAAAA;
+  border-left: 0.12vw solid #AAAAAA;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.black {
+  height: 5em;
+  width: 2em;
+  z-index: 2;
+  border: 0.1em solid #000000;
+}
+
+.bg-black {
+  background-color: #222222;
+}
+
+.a, .b, .d, .e, .g, .black {
+    margin: 0 0 0 -1.25em;
+}
+
+#keyboard > .key:last-child {
+  border-right: 0.12vw solid #AAAAAA;
+}

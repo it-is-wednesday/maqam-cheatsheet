@@ -59,202 +59,154 @@
     },
   }"
         x-init="refreshMatches()">
-    <div class="controls">
+    <div id="keyboard">
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[8388608] = !notes[8388608]; refreshMatches()"
-          x-bind:class="notes[8388608] && 'note-selected'">
-          C↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[4194304] = !notes[4194304]; refreshMatches()"
-          x-bind:class="notes[4194304] && 'note-selected'">
-          C
-        </button>
+          
+          
+          <div class="key white c"
+             data-note="C"
+             x-on:click="notes[4194304] = !notes[4194304]; refreshMatches()"
+             x-bind:class="notes[4194304] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[2097152] = !notes[2097152]; refreshMatches()"
-          x-bind:class="notes[2097152] && 'note-selected'">
-          C#↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[1048576] = !notes[1048576]; refreshMatches()"
-          x-bind:class="notes[1048576] && 'note-selected'">
-          C#
-        </button>
+          
+          
+          <div class="key black c_sharp"
+             data-note="C#"
+             x-on:click="notes[1048576] = !notes[1048576]; refreshMatches()"
+             x-bind:class="notes[1048576] ? 'note-selected' : 'bg-black'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[524288] = !notes[524288]; refreshMatches()"
-          x-bind:class="notes[524288] && 'note-selected'">
-          D↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[262144] = !notes[262144]; refreshMatches()"
-          x-bind:class="notes[262144] && 'note-selected'">
-          D
-        </button>
+          
+          
+          <div class="key white d"
+             data-note="D"
+             x-on:click="notes[262144] = !notes[262144]; refreshMatches()"
+             x-bind:class="notes[262144] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[131072] = !notes[131072]; refreshMatches()"
-          x-bind:class="notes[131072] && 'note-selected'">
-          D#↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[65536] = !notes[65536]; refreshMatches()"
-          x-bind:class="notes[65536] && 'note-selected'">
-          D#
-        </button>
+          
+          
+          <div class="key black d_sharp"
+             data-note="D#"
+             x-on:click="notes[65536] = !notes[65536]; refreshMatches()"
+             x-bind:class="notes[65536] ? 'note-selected' : 'bg-black'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[32768] = !notes[32768]; refreshMatches()"
-          x-bind:class="notes[32768] && 'note-selected'">
-          E↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[16384] = !notes[16384]; refreshMatches()"
-          x-bind:class="notes[16384] && 'note-selected'">
-          E
-        </button>
+          
+          
+          <div class="key white e"
+             data-note="E"
+             x-on:click="notes[16384] = !notes[16384]; refreshMatches()"
+             x-bind:class="notes[16384] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[8192] = !notes[8192]; refreshMatches()"
-          x-bind:class="notes[8192] && 'note-selected'">
-          F↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[4096] = !notes[4096]; refreshMatches()"
-          x-bind:class="notes[4096] && 'note-selected'">
-          F
-        </button>
+          
+          
+          <div class="key white f"
+             data-note="F"
+             x-on:click="notes[4096] = !notes[4096]; refreshMatches()"
+             x-bind:class="notes[4096] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[2048] = !notes[2048]; refreshMatches()"
-          x-bind:class="notes[2048] && 'note-selected'">
-          F#↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[1024] = !notes[1024]; refreshMatches()"
-          x-bind:class="notes[1024] && 'note-selected'">
-          F#
-        </button>
+          
+          
+          <div class="key black f_sharp"
+             data-note="F#"
+             x-on:click="notes[1024] = !notes[1024]; refreshMatches()"
+             x-bind:class="notes[1024] ? 'note-selected' : 'bg-black'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[512] = !notes[512]; refreshMatches()"
-          x-bind:class="notes[512] && 'note-selected'">
-          G↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[256] = !notes[256]; refreshMatches()"
-          x-bind:class="notes[256] && 'note-selected'">
-          G
-        </button>
+          
+          
+          <div class="key white g"
+             data-note="G"
+             x-on:click="notes[256] = !notes[256]; refreshMatches()"
+             x-bind:class="notes[256] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[128] = !notes[128]; refreshMatches()"
-          x-bind:class="notes[128] && 'note-selected'">
-          G#↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[64] = !notes[64]; refreshMatches()"
-          x-bind:class="notes[64] && 'note-selected'">
-          G#
-        </button>
+          
+          
+          <div class="key black g_sharp"
+             data-note="G#"
+             x-on:click="notes[64] = !notes[64]; refreshMatches()"
+             x-bind:class="notes[64] ? 'note-selected' : 'bg-black'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[32] = !notes[32]; refreshMatches()"
-          x-bind:class="notes[32] && 'note-selected'">
-          A↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[16] = !notes[16]; refreshMatches()"
-          x-bind:class="notes[16] && 'note-selected'">
-          A
-        </button>
+          
+          
+          <div class="key white a"
+             data-note="A"
+             x-on:click="notes[16] = !notes[16]; refreshMatches()"
+             x-bind:class="notes[16] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[8] = !notes[8]; refreshMatches()"
-          x-bind:class="notes[8] && 'note-selected'">
-          A#↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[4] = !notes[4]; refreshMatches()"
-          x-bind:class="notes[4] && 'note-selected'">
-          A#
-        </button>
+          
+          
+          <div class="key black a_sharp"
+             data-note="A#"
+             x-on:click="notes[4] = !notes[4]; refreshMatches()"
+             x-bind:class="notes[4] ? 'note-selected' : 'bg-black'">
+          </div>
+        
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[2] = !notes[2]; refreshMatches()"
-          x-bind:class="notes[2] && 'note-selected'">
-          B↓
-        </button>
       
         
-        <button
-          class="note-button"
-          x-on:click="notes[1] = !notes[1]; refreshMatches()"
-          x-bind:class="notes[1] && 'note-selected'">
-          B
-        </button>
+          
+          
+          <div class="key white b"
+             data-note="B"
+             x-on:click="notes[1] = !notes[1]; refreshMatches()"
+             x-bind:class="notes[1] ? 'note-selected' : 'bg-white'">
+          </div>
+        
       
-      <br/>
     </div>
+
     <div class="maqamat">
       
         <div class="maqam" x-show="matches['ajam'].size > 0">

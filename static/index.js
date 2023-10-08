@@ -1,4 +1,37 @@
 /**
+ * @typedef {{ [maqam: string]: number[] }} MaqamatVariations
+ * @typedef {{ [maqam: string]: Set<string> }} MatchedMaqamat
+ * @typedef {{ [note: string]: boolean }} SelectedNotes
+ */
+
+/**
+ * @param {string[]} notesNotations
+ * @param {MaqamatVariations} maqamat
+ */
+function makeState(notesNotations, maqamat) {
+  return {
+    /** @type {SelectedNotes} */
+    notes: Object.fromEntries(
+      [...Array(24).keys()].map((n) => [2 ** (24 - n - 1), false]),
+    ),
+    /** @type {MatchedMaqamat} */
+    matches: {},
+    refreshMatches() {
+      this.matches = findMatchingMaqamat(
+        calculateBinaryRepr(this.notes),
+        notesNotations,
+        maqamat,
+      );
+    },
+    /** @param {number} i */
+    toggleNote(i) {
+      this.notes[i] = !this.notes[i];
+      this.refreshMatches();
+    },
+  };
+}
+
+/**
  * @param {object} obj
  * @returns {string}
  */
@@ -9,16 +42,7 @@ function stringify(obj) {
 }
 
 /**
- * @returns {{ [note: string]: boolean }}
- */
-function makeNotesState() {
-  return Object.fromEntries(
-    [...Array(24).keys()].map((n) => [2 ** (24 - n - 1), false]),
-  );
-}
-
-/**
- * @param {{ [note: string]: boolean }} selectedNotes
+ * @param {SelectedNotes} selectedNotes
  * @returns {number}
  */
 function calculateBinaryRepr(selectedNotes) {
@@ -33,12 +57,12 @@ function calculateBinaryRepr(selectedNotes) {
 
 /**
  * @param {number} intervalsBinary
- * @param { string[] } notesNotations
- * @param {{ [maqam: string]: number[] }} maqamat
- * @returns {{ [maqam: string]: Set<string> }}
+ * @param {string[]} notesNotations
+ * @param {MaqamatVariations} maqamat
+ * @returns {MatchedMaqamat}
  */
 function findMatchingMaqamat(intervalsBinary, notesNotations, maqamat) {
-  /** @type {{ [maqam: string]: Set<string> }} */
+  /** @type {MatchedMaqamat} */
   const results = Object.fromEntries(
     Object.keys(maqamat).map((m) => [m, new Set()]),
   );
@@ -63,9 +87,10 @@ function findMatchingMaqamat(intervalsBinary, notesNotations, maqamat) {
 }
 
 /**
- * @param {{[note: string]: boolean}} notes
+ * @param {SelectedNotes} selectedNotes
  * @returns {number}
  */
-function selectedAmount(notes) {
-  return Object.keys(notes).filter((note) => notes[note]).length;
+function selectedAmount(selectedNotes) {
+  const allNotes = Object.keys(selectedNotes);
+  return allNotes.filter((note) => selectedNotes[note]).length;
 }

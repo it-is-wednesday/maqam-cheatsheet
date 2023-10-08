@@ -44,28 +44,38 @@
   background: teal;
 }
 
-
 .key {
   float: left;
   position: relative;
 }
 
 #keyboard {
-    height: 10.2em;
-    width: 20.2em;
+  height: 10.2em;
+  width: 20.2em;
+}
+
+.quarter-up-to-e {
+  height: 1em;
+  width: 1.5em;
+  text-align: center;
+}
+
+.quarters {
+  display: flex;
+  flex-direction: row;
 }
 
 .white {
   height: 10em;
   width: 3em;
   z-index: 1;
-  border-top: 0.12vw solid #AAAAAA;
-  border-bottom: 0.12vw solid #AAAAAA;
-  border-left: 0.12vw solid #AAAAAA;
+  border-top: 0.1em solid #aaaaaa;
+  border-bottom: 0.1em solid #aaaaaa;
+  border-left: 0.1em solid #aaaaaa;
 }
 
 .bg-white {
-    background-color: white;
+  background-color: white;
 }
 
 .black {
@@ -79,10 +89,33 @@
   background-color: #222222;
 }
 
-.a, .b, .d, .e, .g, .black {
-    margin: 0 0 0 -1.25em;
+.a,
+.b,
+.d,
+.e,
+.g,
+.black {
+  margin: 0 0 0 -1.25em;
+}
+
+.spacer185 {
+  width: 1.85em;
+}
+
+.spacer06 {
+  width: 0.6em;
+}
+
+.half {
+  width: 2.2em;
+  text-align: center;
+}
+
+.quarter-white {
+  width: 2.85em;
+  text-align: center;
 }
 
 #keyboard > .key:last-child {
-  border-right: 0.12vw solid #AAAAAA;
+  border-right: 0.12vw solid #aaaaaa;
 }

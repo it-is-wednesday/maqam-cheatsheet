@@ -30,18 +30,26 @@
   </head>
   <body x-data="makeState(notesNotations, maqamat)" x-init="refreshMatches">
     <div>
-      <div class="quarters">
-        <div class="spacer185"></div>
-        <div class="half">{{ quarterNotation }}</div>
-        <div class="spacer06"></div>
-        <div class="half">{{ quarterNotation }}</div>
-        <div class="spacer185"></div>
-        <div class="spacer185"></div>
-        <div class="half">{{ quarterNotation }}</div>
-        <div class="spacer06"></div>
-        <div class="half">{{ quarterNotation }}</div>
-        <div class="spacer06"></div>
-        <div class="half">{{ quarterNotation }}</div>
+      <div class="quarters-container-black">
+        {% for note in notes %}
+          {% if "↓" in note and "#" in note %}
+            {% set i = 2 ** (24 - loop.index0 - 1) %}
+            {% if note[0] == "C" %}
+              <div class="spacer185"></div>
+            {% elif note[0] == "F" %}
+              <div class="spacer185"></div>
+              <div class="spacer185"></div>
+            {% elif note[0] in ["D", "G", "A"] %}
+              <div class="spacer06"></div>
+            {% endif %}
+
+            <div class="quarter-black"
+                 x-bind:class="notes[{{ i }}] && 'note-selected-bg'"
+                 x-on:click="toggleNote({{ i }})">
+              {{ quarterNotation }}
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
       <div id="keyboard">
         {% for note in notes %}
@@ -50,19 +58,24 @@
             {% set color = 'black' if '#' in note else 'white' %}
             <div class="key {{ color }} {{ note.replace('#', '_sharp').lower() }}"
               x-on:click="toggleNote({{ i }})"
-              x-bind:class="notes[{{ i }}] ? 'note-selected' : 'bg-{{ color }}'">
+              x-bind:class="notes[{{ i }}]
+                        ? 'note-selected-bg'
+                        : 'bg-{{ color }}'">
             </div>
           {% endif %}
         {% endfor %}
       </div>
-      <div class="quarters">
-        <div class="quarter-white">{{ quarterNotation }}</div>
-        <div class="quarter-white">{{ quarterNotation }}</div>
-        <div class="quarter-white">{{ quarterNotation }}</div>
-        <div class="quarter-white">{{ quarterNotation }}</div>
-        <div class="quarter-white">{{ quarterNotation }}</div>
-        <div class="quarter-white">{{ quarterNotation }}</div>
-        <div class="quarter-white">{{ quarterNotation }}</div>
+      <div class="quarters-container-white">
+        {% for note in notes %}
+          {% if "↓" in note and "#" not in note %}
+            {% set i = 2 ** (24 - loop.index0 - 1) %}
+            <div class="quarter-white {{ note.replace("↓", "_half").lower() }}"
+                 x-bind:class="notes[{{ i }}] && 'note-selected-bg'"
+                 x-on:click="toggleNote({{ i }})">
+              {{ quarterNotation }}
+            </div>
+          {% endif %}
+        {% endfor %}
       </div>
     </div>
 

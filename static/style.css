@@ -40,8 +40,12 @@
   column-gap: 2em;
 }
 
-.note-selected {
+.note-selected-bg {
   background: teal;
+}
+
+.note-selected-fg {
+  color: teal;
 }
 
 .key {
@@ -54,16 +58,31 @@
   width: 20.2em;
 }
 
-.quarter-up-to-e {
-  height: 1em;
-  width: 1.5em;
+.quarters-container-black, .quarters-container-white {
+  display: flex;
+  flex-direction: row;
+  width: 20.2em;
+}
+
+.quarters-container-white {
+  margin-left: 0.07em;
+  gap: 0.05em;
+}
+
+.quarter-black, .quarter-white {
+  cursor: pointer;
+  user-select: none;
   text-align: center;
 }
 
-.quarters {
-  display: flex;
-  flex-direction: row;
+.quarter-black {
+  width: 2.18em;
 }
+
+.quarter-white {
+  width: 2.7em;
+}
+
 
 .white {
   height: 10em;
@@ -98,6 +117,10 @@
   margin: 0 0 0 -1.25em;
 }
 
+.e_half, .b_half {
+  width: 3em;
+}
+
 .spacer185 {
   width: 1.85em;
 }
@@ -106,16 +129,6 @@
   width: 0.6em;
 }
 
-.half {
-  width: 2.2em;
-  text-align: center;
-}
-
-.quarter-white {
-  width: 2.85em;
-  text-align: center;
-}
-
 #keyboard > .key:last-child {
-  border-right: 0.12vw solid #aaaaaa;
+  border-right: 0.1em solid #aaaaaa;
 }

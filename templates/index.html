@@ -35,19 +35,19 @@
           {% if "↓" in note and "#" in note %}
             {% set i = 2 ** (24 - loop.index0 - 1) %}
             {% if note[0] == "C" %}
-              <div class="spacer185"></div>
+              <div class="spacer24"></div>
             {% elif note[0] == "F" %}
-              <div class="spacer185"></div>
-              <div class="spacer185"></div>
+              <div class="spacer24"></div>
+              <div class="spacer24"></div>
             {% elif note[0] in ["D", "G", "A"] %}
-              <div class="spacer06"></div>
+              <div class="spacer16"></div>
             {% endif %}
 
-            <div class="quarter-black"
+            <button class="quarter-black"
                  x-bind:class="notes[{{ i }}] && 'note-selected-bg'"
                  x-on:click="toggleNote({{ i }})">
               {{ quarterNotation }}
-            </div>
+            </button>
           {% endif %}
         {% endfor %}
       </div>
@@ -69,11 +69,12 @@
         {% for note in notes %}
           {% if "↓" in note and "#" not in note %}
             {% set i = 2 ** (24 - loop.index0 - 1) %}
-            <div class="quarter-white {{ note.replace("↓", "_half").lower() }}"
+            <div class="spacer16"></div>
+            <button class="quarter-white {{ note.replace("↓", "_half").lower() }}"
                  x-bind:class="notes[{{ i }}] && 'note-selected-bg'"
                  x-on:click="toggleNote({{ i }})">
               {{ quarterNotation }}
-            </div>
+            </button>
           {% endif %}
         {% endfor %}
       </div>

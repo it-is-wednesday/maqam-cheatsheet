@@ -65,22 +65,25 @@
 }
 
 .quarters-container-white {
-  margin-left: 0.07em;
+  margin-left: -0.7em;
   gap: 0.05em;
+  margin-top: 0.2em;
+}
+
+.quarters-container-black {
+  margin-bottom: 0.2em;
 }
 
 .quarter-black, .quarter-white {
   cursor: pointer;
   user-select: none;
   text-align: center;
-}
 
-.quarter-black {
-  width: 2.18em;
-}
-
-.quarter-white {
-  width: 2.7em;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font: inherit;
+  box-sizing: border-box;
 }
 
 
@@ -118,15 +121,15 @@
 }
 
 .e_half, .b_half {
-  width: 3em;
+  margin-left: 0.1em;
 }
 
-.spacer185 {
-  width: 1.85em;
+.spacer24 {
+  width: 2.4em;
 }
 
-.spacer06 {
-  width: 0.6em;
+.spacer16 {
+  width: 1.6em;
 }
 
 #keyboard > .key:last-child {

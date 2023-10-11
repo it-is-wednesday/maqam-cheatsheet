@@ -44,6 +44,10 @@
   background: teal;
 }
 
+.note-quarterly-selected-bg {
+  background: #9be0e0;
+}
+
 .note-selected-fg {
   color: teal;
 }

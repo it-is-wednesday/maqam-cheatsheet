@@ -23,10 +23,30 @@ function makeState(notesNotations, maqamat) {
         maqamat,
       );
     },
-    /** @param {number} i */
-    toggleNote(i) {
+    /**
+     * @param {number} i
+     * @param {"quarter" | "equal"} type
+     */
+    toggleNote(i, type) {
       this.notes[i] = !this.notes[i];
+      if (this.notes[i]) {
+        if (type == "equal") this.notes[i * 2] = false;
+        else if (type == "quarter") this.notes[i / 2] = false;
+      }
       this.refreshMatches();
+    },
+    /**
+     * @param {number} i
+     * @param {"black" | "white"} color
+     */
+    getNoteBgClass(i, color) {
+      if (this.notes[i]) {
+        return "note-selected-bg";
+      } else if (this.notes[i * 2]) {
+        return "note-quarterly-selected-bg"
+      } else {
+        return `bg-${color}`;
+      }
     },
   };
 }

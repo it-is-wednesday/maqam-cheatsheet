@@ -45,7 +45,7 @@
 
             <button class="quarter-black"
                  x-bind:class="notes[{{ i }}] && 'note-selected-bg'"
-                 x-on:click="toggleNote({{ i }})">
+                 x-on:click="toggleNote({{ i }}, 'quarter')">
               {{ quarterNotation }}
             </button>
           {% endif %}
@@ -56,11 +56,10 @@
           {% if "↓" not in note %}
             {% set i = 2 ** (24 - loop.index0 - 1) %}
             {% set color = 'black' if '#' in note else 'white' %}
+              <!-- x-bind:class="(notes[{{ i }}] || notes[{{ i }} * 2]) -->
             <div class="key {{ color }} {{ note.replace('#', '_sharp').lower() }}"
-              x-on:click="toggleNote({{ i }})"
-              x-bind:class="notes[{{ i }}]
-                        ? 'note-selected-bg'
-                        : 'bg-{{ color }}'">
+              x-on:click="toggleNote({{ i }}, 'equal')"
+              x-bind:class="getNoteBgClass({{ i }}, '{{ color }}')">
             </div>
           {% endif %}
         {% endfor %}
@@ -72,7 +71,7 @@
             <div class="spacer16"></div>
             <button class="quarter-white {{ note.replace("↓", "_half").lower() }}"
                  x-bind:class="notes[{{ i }}] && 'note-selected-bg'"
-                 x-on:click="toggleNote({{ i }})">
+                 x-on:click="toggleNote({{ i }}, 'quarter')">
               {{ quarterNotation }}
             </button>
           {% endif %}

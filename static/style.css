@@ -2,6 +2,7 @@
   --quarter-btn-color: #fbefe9;
   --btn-selected-color: #dc8f64;
   --btn-quarterly-selected: #e9b89d;
+  --maqam-bg-color: #f2db9a;
 }
 
 html {
@@ -39,8 +40,9 @@ html {
 }
 
 .maqam {
-  max-width: 30%;
-  padding-bottom: 6em;
+  background-color: var(--maqam-bg-color);
+  border-radius: 1em;
+  padding: 0 1em;
 }
 
 .ajnas {
@@ -153,4 +155,11 @@ html {
 
 #keyboard > .key:last-child {
   border-right: 0.1em solid #aaaaaa;
+}
+
+/* rules for computer screens */
+@media (min-width: 600px) {
+  .maqam {
+    max-width: 30%;
+  }
 }

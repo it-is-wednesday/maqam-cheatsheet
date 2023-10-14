@@ -11,8 +11,16 @@ html {
 }
 
 body {
+  font-family:
+    segoe ui,
+    verdana,
+    arial,
+    sans-serif;
   margin: 0 auto;
   max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .maqamat {
@@ -73,11 +81,14 @@ body {
   align-items: center;
   margin-bottom: 2em;
   margin-top: 2em;
+  width: 100%;
 }
 
 #keyboard {
-  height: 10.2em;
-  width: 20.2em;
+  display: flex;
+  height: 10em;
+  width: 100%;
+  background-color: #aaaaaa;
 }
 
 .note-selected-bg {
@@ -102,13 +113,14 @@ body {
 .quarters-container-white {
   display: flex;
   flex-direction: row;
-  width: 20.2em;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .quarters-container-white {
-  margin-left: -0.6em;
   gap: 0.05em;
-  margin-top: 0.2em;
+  margin-top: 0.4em;
+  width: 97%;
 }
 
 .quarters-container-black {
@@ -119,6 +131,7 @@ body {
 .quarter-white {
   cursor: pointer;
   font: inherit;
+  font-size: 0.8em;
   box-sizing: border-box;
   border-radius: 5px;
   padding: 0.1em 0.45em;
@@ -129,8 +142,8 @@ body {
 }
 
 .white {
-  height: 10em;
-  width: 3em;
+  height: 100%;
+  flex: 1;
   z-index: 1;
   border-top: 0.1em solid #aaaaaa;
   border-bottom: 0.1em solid #aaaaaa;
@@ -142,8 +155,8 @@ body {
 }
 
 .black {
-  height: 5em;
-  width: 2em;
+  height: 60%;
+  width: 8%;
   z-index: 2;
   border: 0.1em solid #000000;
 }
@@ -158,15 +171,19 @@ body {
 .e,
 .g,
 .black {
-  margin: 0 0 0 -1.25em;
+  margin: 0 0 0 -4.27%;
 }
 
 .spacer1 {
-  width: 1.8em;
+  width: 8%;
 }
 
 .spacer2 {
-  width: 0.52em;
+  width: 1.5%;
+}
+
+.spacer3 {
+  width: 16%;
 }
 
 #keyboard > .key:last-child {
@@ -174,8 +191,16 @@ body {
 }
 
 /* rules for computer screens */
-@media (min-width: 600px) {
+@media (min-width: 1000px) {
   .maqamat {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .controls {
+    width: 30%;
+  }
+
+  .quarters-container-white {
+    width: 92%;
   }
 }

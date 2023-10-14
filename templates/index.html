@@ -2,13 +2,14 @@
 {% set notes = ["C↓", "C", "C#↓", "C#", "D↓", "D", "D#↓", "D#",
                 "E↓", "E", "F↓", "F", "F#↓", "F#", "G↓", "G",
                 "G#↓", "G#", "A↓", "A", "A#↓", "A#", "B↓", "B"] %}
-{% set quarterNotation = '¼<span style="font-size: 0.7em; vertical-align: text-top">↓</span>' %}
+{% set quarterNotation = '¼<span style="vertical-align: text-top">↓</span>' %}
 
 <!DOCTYPE html>
 <html>
   <head>
     <title>maqamat</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script defer src="alpine.min.js"></script>
     <script src="index.js"></script>
     <script>
@@ -34,8 +35,7 @@
             {% if note[0] == "C" %}
               <div class="spacer1"></div>
             {% elif note[0] == "F" %}
-              <div class="spacer1"></div>
-              <div class="spacer1"></div>
+              <div class="spacer3"></div>
             {% elif note[0] in ["D", "G", "A"] %}
               <div class="spacer2"></div>
             {% endif %}
@@ -47,6 +47,7 @@
             </button>
           {% endif %}
         {% endfor %}
+        <div class="spacer1"></div>
       </div>
       <div id="keyboard">
         {% for note in notes %}
@@ -64,7 +65,6 @@
         {% for note in notes %}
           {% if "↓" in note and "#" not in note %}
             {% set i = 2 ** (24 - loop.index0 - 1) %}
-            <div class="spacer2"></div>
             <button class="quarter-white {{ note.replace("↓", "_half").lower() }}"
                     x-bind:class="notes[{{ i }}] ? 'note-selected-bg' : 'quarter-unselected-bg'"
                     x-on:pointerdown="toggleNote({{ i }}, 'quarter')">

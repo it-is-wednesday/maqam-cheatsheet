@@ -6,7 +6,7 @@ requires-python = ">=3.11"
 dependencies = ["jinja2"]
 
 [project.optional-dependencies]
-dev = ["pytest", "types-jinja2"]
+dev = ["pytest", "types-jinja2", "supervisor"]
 
 [tool.ruff]
 line-length = 80

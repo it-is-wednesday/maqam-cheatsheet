@@ -43,7 +43,7 @@ function makeState(notesNotations, maqamat) {
       if (this.notes[i]) {
         return "note-selected-bg";
       } else if (this.notes[i * 2]) {
-        return "note-quarterly-selected-bg"
+        return "note-quarterly-selected-bg";
       } else {
         return `bg-${color}`;
       }
@@ -86,14 +86,15 @@ function findMatchingMaqamat(intervalsBinary, notesNotations, maqamat) {
   const results = Object.fromEntries(
     Object.keys(maqamat).map((m) => [m, new Set()]),
   );
+
   for (const maqamName of Object.keys(maqamat)) {
     maqamat[maqamName].forEach((variation) => {
       /** @type {number?} */
       let adjusted = null;
-      notesNotations.forEach((note) => {
+      notesNotations.forEach((note, i) => {
         if (adjusted !== null) {
-          const carry = adjusted & (2 ** 23);
-          adjusted = ((adjusted - carry) << 1) + (carry == 0 ? 0 : 1);
+          const carry = adjusted & 1;
+          adjusted = ((adjusted - carry) >> 1) + (carry == 0 ? 0 : (2 ** 23));
         } else {
           adjusted = variation;
         }

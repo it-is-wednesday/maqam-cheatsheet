@@ -78,7 +78,7 @@
     <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">
-          <h3>{{ maqam.name }}</h3>
+          <h3 class="maqam-title">{{ maqam.name }}</h3>
           <div x-show="selectedAmount(notes) > 1">
             <span>keys: </span>
             <span x-text="stringify(matches['{{ maqam.name }}'])"></span>
@@ -91,7 +91,7 @@
             ] %}
               {% if jins %}
                 <div class="jins">
-                  <h3>{{ jins.name }}</h3>
+                  <h5 class="jins-title">{{ jins.name }}</h5>
                   <div class="jins-intervals">
                     {{ jins.pretty_intervals() }}
                   </div>

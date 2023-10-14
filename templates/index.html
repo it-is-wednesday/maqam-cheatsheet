@@ -23,6 +23,7 @@
        {% endfor -%}
      };
      const notesNotations = {{ notes }};
+     const notesWeights = Object.fromEntries(notesNotations.map((n, i) => [n, i]));
     </script>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
@@ -81,7 +82,7 @@
           <h3 class="maqam-title">{{ maqam.name }}</h3>
           <div x-show="selectedAmount(notes) > 1">
             <span>keys: </span>
-            <span x-text="stringify(matches['{{ maqam.name }}'])"></span>
+            <span x-text="stringifyKeys(matches['{{ maqam.name }}'], notesWeights)"></span>
           </div>
           <div class="ajnas">
             {% for jins in [

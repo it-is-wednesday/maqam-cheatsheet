@@ -52,13 +52,14 @@ function makeState(notesNotations, maqamat) {
 }
 
 /**
- * @param {object} obj
+ * @param {Set<string>} keys
+ * @param {{ [note: string]: number }} notesWeights
  * @returns {string}
  */
-function stringify(obj) {
-  return JSON.stringify(obj, (_key, value) =>
-    value instanceof Set ? [...value] : value,
-  );
+function stringifyKeys(keys, notesWeights) {
+  return Array.from(keys)
+    .sort((a, b) => notesWeights[a] - notesWeights[b])
+    .join(", ");
 }
 
 /**
@@ -94,7 +95,7 @@ function findMatchingMaqamat(intervalsBinary, notesNotations, maqamat) {
       notesNotations.forEach((note, i) => {
         if (adjusted !== null) {
           const carry = adjusted & 1;
-          adjusted = ((adjusted - carry) >> 1) + (carry == 0 ? 0 : (2 ** 23));
+          adjusted = ((adjusted - carry) >> 1) + (carry == 0 ? 0 : 2 ** 23);
         } else {
           adjusted = variation;
         }

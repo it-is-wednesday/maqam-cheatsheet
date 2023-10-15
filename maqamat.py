@@ -120,7 +120,7 @@ def make_html(locale: str) -> str:
     maqamat = get_maqamat(ajnas_dict)
 
     gnu_translations = gettext.translation(
-        domain='index',
+        domain='maqam',
         localedir="locale/",
         languages=[locale]
     )
@@ -157,9 +157,10 @@ def make_html(locale: str) -> str:
 
 
 def main() -> None:
-    for locale in ["en", "ar"]:
+    for locale in ["en", "ar", "he"]:
         p = Path(f"out/{locale}/index.html")
         p.parent.mkdir(exist_ok=True)
+        print(f"generating {locale}")
         with p.open("w") as f:
             f.write(make_html(locale))
 

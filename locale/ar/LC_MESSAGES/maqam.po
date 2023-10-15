@@ -47,40 +47,37 @@ msgid "mahur"
 msgstr "ماهور"
 
 msgid "mustaar"
-msgstr "Mustaar"
+msgstr "مُستعار"
 
 msgid "nahawand"
-msgstr "Nahawand"
+msgstr "نهاوند"
 
 msgid "nahawand_murassaa"
-msgstr "Nahawand Murassaa"
+msgstr "نهاوند مرصّع"
 
 msgid "nairuz"
-msgstr "Nairuz"
+msgstr "نيروز"
 
 msgid "nawa_athar"
-msgstr "Nawa Athar"
+msgstr "نَو أثَر"
 
 msgid "rast"
-msgstr "Rast"
-
-msgid "kirdan"
-msgstr "Kirdan"
+msgstr "راسْت"
 
 msgid "shawq_afza"
-msgstr "Shawq Afza"
+msgstr "شوق افزا"
 
 msgid "sikah"
-msgstr "Sikah"
+msgstr "سيكاه"
 
 msgid "suzdalara"
-msgstr "Suzdalara"
+msgstr "سوزدلارا"
 
 msgid "suznak"
-msgstr "Suznak"
+msgstr "سوزناك"
 
 msgid "ushaq_masri"
-msgstr "Ushaq Masri"
+msgstr "عُشّاق مصري"
 
 msgid "zanjaran"
-msgstr "Zanjaran"
+msgstr "زَنجَران"

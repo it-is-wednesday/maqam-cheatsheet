@@ -1,0 +1,83 @@
+msgid "ajam"
+msgstr "עז'ם"
+
+msgid "ajam_ushayran"
+msgstr "עז'ם עושיירן"
+
+msgid "athar_kurd"
+msgstr "את'ר כורד"
+
+msgid "awj_iraq"
+msgstr "אווג' עיראק"
+
+msgid "bayati"
+msgstr "ביאתי"
+
+msgid "bayati_shuri"
+msgstr "ביאתי שורי"
+
+msgid "hijaz"
+msgstr "חיז'אז"
+
+msgid "hijazkar"
+msgstr "חיז'אזקאר"
+
+msgid "huzam"
+msgstr "הוזאם"
+
+msgid "iraq"
+msgstr "עיראק"
+
+msgid "jiharkah"
+msgstr "ז'יהארקא"
+
+msgid "kirdan"
+msgstr "כירדאן"
+
+msgid "sazkar"
+msgstr "סאזקאר"
+
+msgid "kurd"
+msgstr "כורד"
+
+msgid "lami"
+msgstr "לאמי"
+
+msgid "mahur"
+msgstr "מאהור"
+
+msgid "mustaar"
+msgstr "מוסתעאר"
+
+msgid "nahawand"
+msgstr "נהוואנד"
+
+msgid "nahawand_murassaa"
+msgstr "נהוואנד מורסעה"
+
+msgid "nairuz"
+msgstr "ניירוז"
+
+msgid "nawa_athar"
+msgstr "נאווה את'ר"
+
+msgid "rast"
+msgstr "ראסט"
+
+msgid "shawq_afza"
+msgstr "שאווק אפזא"
+
+msgid "sikah"
+msgstr "סיכא"
+
+msgid "suzdalara"
+msgstr "סוזדלארה"
+
+msgid "suznak"
+msgstr "סוזנאק"
+
+msgid "ushaq_masri"
+msgstr "עושאק מאסרי"
+
+msgid "zanjaran"
+msgstr "זנז'ראן"

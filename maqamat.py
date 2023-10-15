@@ -1,4 +1,5 @@
 import csv
+from pathlib import Path
 import re
 from dataclasses import dataclass
 from itertools import accumulate
@@ -114,14 +115,14 @@ def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
     return Jins(comb, intervals)
 
 
-def make_html() -> str:
+def make_html(locale: str) -> str:
     ajnas_dict = get_ajnas()
     maqamat = get_maqamat(ajnas_dict)
 
     gnu_translations = gettext.translation(
         domain='index',
         localedir="locale/",
-        languages=["en_US"]
+        languages=[locale]
     )
     jinja_env = Environment(
         loader=PackageLoader("maqamat"),
@@ -156,8 +157,11 @@ def make_html() -> str:
 
 
 def main() -> None:
-    with open("static/index.html", "w") as f:
-        f.write(make_html())
+    for locale in ["en_US", "ar"]:
+        p = Path(f"static/{locale}/index.html")
+        p.parent.mkdir(exist_ok=True)
+        with p.open("w") as f:
+            f.write(make_html(locale))
 
 
 if __name__ == "__main__":

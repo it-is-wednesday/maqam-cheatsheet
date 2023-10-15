@@ -5,3 +5,6 @@ dist
 static/index.html
 static/alpine.min.js
 locale/**/*.mo
+.venv
+__pycache__
+out

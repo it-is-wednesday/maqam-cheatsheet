@@ -157,8 +157,8 @@ def make_html(locale: str) -> str:
 
 
 def main() -> None:
-    for locale in ["en_US", "ar"]:
-        p = Path(f"static/{locale}/index.html")
+    for locale in ["en", "ar"]:
+        p = Path(f"out/{locale}/index.html")
         p.parent.mkdir(exist_ok=True)
         with p.open("w") as f:
             f.write(make_html(locale))

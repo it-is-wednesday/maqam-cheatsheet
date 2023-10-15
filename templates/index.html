@@ -10,8 +10,8 @@
     <title>maqamat</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script defer src="alpine.min.js"></script>
-    <script src="index.js"></script>
+    <script defer src="/alpine.min.js"></script>
+    <script src="/index.js"></script>
     <script>
      const maqamat = {
        {% for maqam in maqamat -%}
@@ -25,7 +25,7 @@
      const notesNotations = {{ notes }};
      const notesWeights = Object.fromEntries(notesNotations.map((n, i) => [n, i]));
     </script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
   <body x-data="makeState(notesNotations, maqamat)" x-init="refreshMatches">
     <div class="controls">

@@ -7,7 +7,7 @@
 
 html {
   background-color: #be5a49;
-  background-image: url("bg.svg");
+  background-image: url("/bg.svg");
 }
 
 body {
@@ -60,7 +60,7 @@ body {
   background-color: var(--maqam-bg-color);
   border-radius: 1em;
   padding: 0 1em 2em 1em;
-  background-image: url("maqam-bg.svg");
+  background-image: url("/maqam-bg.svg");
 }
 
 .maqam-title {

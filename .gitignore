@@ -4,3 +4,4 @@ out.html
 dist
 static/index.html
 static/alpine.min.js
+locale/**/*.mo

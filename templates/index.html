@@ -79,7 +79,7 @@
     <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">
-          <h3 class="maqam-title">{{ maqam.name }}</h3>
+          <h3 class="maqam-title">{{ gettext(maqam.name) }}</h3>
           <div x-show="selectedAmount(notes) > 1">
             <span>keys: </span>
             <span x-text="stringifyKeys(matches['{{ maqam.name }}'], notesWeights)"></span>

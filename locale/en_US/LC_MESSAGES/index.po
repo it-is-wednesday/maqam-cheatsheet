@@ -1,0 +1,86 @@
+msgid "ajam"
+msgstr "Ajam"
+
+msgid "ajam_ushayran"
+msgstr "Ajam Ushayran"
+
+msgid "athar_kurd"
+msgstr "Athar Kurd"
+
+msgid "awj_iraq"
+msgstr "Awj Iraq"
+
+msgid "bayati"
+msgstr "Bayati"
+
+msgid "bayati_shuri"
+msgstr "Bayati Shuri"
+
+msgid "hijaz"
+msgstr "Hijaz"
+
+msgid "hijazkar"
+msgstr "Hijazkar"
+
+msgid "huzam"
+msgstr "Huzam"
+
+msgid "iraq"
+msgstr "Iraq"
+
+msgid "jiharkah"
+msgstr "Jiharkah"
+
+msgid "kirdan"
+msgstr "Kirdan"
+
+msgid "sazkar"
+msgstr "Sazkar"
+
+msgid "kurd"
+msgstr "Kurd"
+
+msgid "lami"
+msgstr "Lami"
+
+msgid "mahur"
+msgstr "Mahur"
+
+msgid "mustaar"
+msgstr "Mustaar"
+
+msgid "nahawand"
+msgstr "Nahawand"
+
+msgid "nahawand_murassaa"
+msgstr "Nahawand Murassaa"
+
+msgid "nairuz"
+msgstr "Nairuz"
+
+msgid "nawa_athar"
+msgstr "Nawa Athar"
+
+msgid "rast"
+msgstr "Rast"
+
+msgid "kirdan"
+msgstr "Kirdan"
+
+msgid "shawq_afza"
+msgstr "Shawq Afza"
+
+msgid "sikah"
+msgstr "Sikah"
+
+msgid "suzdalara"
+msgstr "Suzdalara"
+
+msgid "suznak"
+msgstr "Suznak"
+
+msgid "ushaq_masri"
+msgstr "Ushaq Masri"
+
+msgid "zanjaran"
+msgstr "Zanjaran"

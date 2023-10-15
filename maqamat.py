@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from itertools import accumulate
 from operator import add
 from typing import Any, Optional
+import gettext
 
 from jinja2 import Environment, PackageLoader
 
@@ -117,10 +118,17 @@ def make_html() -> str:
     ajnas_dict = get_ajnas()
     maqamat = get_maqamat(ajnas_dict)
 
+    gnu_translations = gettext.translation(
+        domain='index',
+        localedir="locale/",
+        languages=["en_US"]
+    )
     jinja_env = Environment(
         loader=PackageLoader("maqamat"),
         autoescape=False,
+        extensions=["jinja2.ext.i18n"],
     )
+    jinja_env.install_gettext_translations(gnu_translations, newstyle=True)
 
     print(
         "{:^20}{:^20}{:^20}{:^20}".format(

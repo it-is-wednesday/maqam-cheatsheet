@@ -28,6 +28,11 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
   <body x-data="makeState(notesNotations, maqamat)" x-init="refreshMatches">
+    <div class="languages-container">
+      <a class="language" href="/en">English</a>
+      <a class="language" href="/he">עברית</a>
+      <a class="language" href="/ar">العربية</a>
+    </div>
     <div class="controls">
       <div class="quarters-container-black">
         {% for note in notes %}

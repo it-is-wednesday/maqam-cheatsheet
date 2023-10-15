@@ -23,6 +23,18 @@ body {
   align-items: center;
 }
 
+.languages-container {
+  display: flex;
+  gap: 1em;
+  padding-top: 1em;
+}
+
+.language {
+  text-decoration: none;
+  text-shadow: 2px 2px 2px black;
+  color: white;
+}
+
 .maqamat {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

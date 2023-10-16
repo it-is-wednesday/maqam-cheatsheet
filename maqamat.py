@@ -121,7 +121,7 @@ def make_html(locale: str) -> str:
 
     gnu_translations = gettext.translation(
         domain='maqam',
-        localedir="locale/",
+        localedir="data/locale/",
         languages=[locale]
     )
     jinja_env = Environment(

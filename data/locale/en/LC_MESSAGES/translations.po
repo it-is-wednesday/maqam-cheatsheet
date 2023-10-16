@@ -1,3 +1,31 @@
+msgid "direction"
+msgstr "ltr"
+
+# ----- notes
+
+msgid "C"
+msgstr "C"
+
+msgid "D"
+msgstr "D"
+
+msgid "E"
+msgstr "E"
+
+msgid "F"
+msgstr "F"
+
+msgid "G"
+msgstr "G"
+
+msgid "A"
+msgstr "A"
+
+msgid "B"
+msgstr "B"
+
+# ----- maqamat
+
 msgid "ajam"
 msgstr "Ajam"
 

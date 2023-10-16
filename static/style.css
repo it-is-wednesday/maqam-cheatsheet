@@ -79,6 +79,12 @@ body {
   text-align: center;
 }
 
+.matching-keys {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+}
+
 .ajnas {
   display: flex;
   flex-direction: row;

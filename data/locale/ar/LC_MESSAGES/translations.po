@@ -1,3 +1,31 @@
+msgid "direction"
+msgstr "rtl"
+
+# ----- notes
+
+msgid "C"
+msgstr "دو"
+
+msgid "D"
+msgstr "ري"
+
+msgid "E"
+msgstr "مي"
+
+msgid "F"
+msgstr "فا"
+
+msgid "G"
+msgstr "صول"
+
+msgid "A"
+msgstr "لا"
+
+msgid "B"
+msgstr "سي"
+
+# ----- maqamat
+
 msgid "ajam"
 msgstr "عجم"
 

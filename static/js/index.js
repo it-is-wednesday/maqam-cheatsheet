@@ -54,12 +54,10 @@ function makeState(notesNotations, maqamat) {
 /**
  * @param {Set<string>} keys
  * @param {{ [note: string]: number }} notesWeights
- * @returns {string}
+ * @returns {string[]}
  */
-function stringifyKeys(keys, notesWeights) {
-  return Array.from(keys)
-    .sort((a, b) => notesWeights[a] - notesWeights[b])
-    .join(", ");
+function sortKeys(keys, notesWeights) {
+  return Array.from(keys).sort((a, b) => notesWeights[a] - notesWeights[b]);
 }
 
 /**

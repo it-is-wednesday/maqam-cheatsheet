@@ -24,6 +24,11 @@
      };
      const notesNotations = {{ notes }};
      const notesWeights = Object.fromEntries(notesNotations.map((n, i) => [n, i]));
+     const notesTranslations = {
+       {%- for note in ["C", "D", "E", "F", "G", "A", "B"] -%}
+         {{ note }}: "{{ gettext(note) }}",
+       {%- endfor -%}
+     };
     </script>
     <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
@@ -85,9 +90,18 @@
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">
           <h3 class="maqam-title">{{ gettext(maqam.name) }}</h3>
-          <div x-show="selectedAmount(notes) > 1">
-            <span>keys: </span>
-            <span x-text="stringifyKeys(matches['{{ maqam.name }}'], notesWeights)"></span>
+          <div
+            class="matching-keys"
+            dir="{{ gettext('direction') }}"
+            x-show="selectedAmount(notes) > 1">
+            keys:
+            <template x-for="key in sortKeys(matches['{{ maqam.name }}'],
+                                             notesWeights)">
+              <div x-text="notesTranslations[key.substr(0, 1)]
+                           + key.substr(1)"
+                   dir="{{ gettext('direction') }}">
+              </div>
+            </template>
           </div>
           <div class="ajnas">
             {% for jins in [

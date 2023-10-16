@@ -1,3 +1,31 @@
+msgid "direction"
+msgstr "rtl"
+
+# ----- notes
+
+msgid "C"
+msgstr "דו"
+
+msgid "D"
+msgstr "רה"
+
+msgid "E"
+msgstr "מי"
+
+msgid "F"
+msgstr "פה"
+
+msgid "G"
+msgstr "סול"
+
+msgid "A"
+msgstr "לה"
+
+msgid "B"
+msgstr "סי"
+
+# ----- maqamat
+
 msgid "ajam"
 msgstr "עז'ם"
 
@@ -11,10 +39,10 @@ msgid "awj_iraq"
 msgstr "אווג' עיראק"
 
 msgid "bayati"
-msgstr "ביאתי"
+msgstr "ביאת"
 
 msgid "bayati_shuri"
-msgstr "ביאתי שורי"
+msgstr "ביאת שורי"
 
 msgid "hijaz"
 msgstr "חיז'אז"
@@ -68,7 +96,7 @@ msgid "shawq_afza"
 msgstr "שאווק אפזא"
 
 msgid "sikah"
-msgstr "סיכא"
+msgstr "סיגא"
 
 msgid "suzdalara"
 msgstr "סוזדלארה"

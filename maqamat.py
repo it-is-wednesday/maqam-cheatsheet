@@ -120,7 +120,7 @@ def make_html(locale: str) -> str:
     maqamat = get_maqamat(ajnas_dict)
 
     gnu_translations = gettext.translation(
-        domain='maqam',
+        domain='translations',
         localedir="data/locale/",
         languages=[locale]
     )

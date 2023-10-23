@@ -132,6 +132,13 @@ body {
   margin-top: 2em;
   width: 100%;
   user-select: none;
+
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 #keyboard {

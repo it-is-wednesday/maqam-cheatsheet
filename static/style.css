@@ -131,6 +131,7 @@ body {
   margin-bottom: 2em;
   margin-top: 2em;
   width: 100%;
+  user-select: none;
 }
 
 #keyboard {

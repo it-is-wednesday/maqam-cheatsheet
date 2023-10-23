@@ -89,12 +89,12 @@
     <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">
-          <h3 class="maqam-title">{{ gettext(maqam.name) }}</h3>
+          <div class="maqam-title">{{ gettext(maqam.name) }}</div>
+          <div style="flex: 1"><!-- flex spacer --></div>
           <div
             class="matching-keys"
             dir="{{ gettext('direction') }}"
-            x-show="selectedAmount(notes) > 1">
-            keys:
+            x-show="selectedAmount(notes) > 2">
             <template x-for="key in sortKeys(matches['{{ maqam.name }}'],
                                              notesWeights)">
               <div x-text="notesTranslations[key.substr(0, 1)]
@@ -104,21 +104,37 @@
             </template>
           </div>
           <div class="ajnas">
-            {% for jins in [
-              maqam.tonic,
-              maqam.ghammaz_option1,
-              maqam.ghammaz_option2
-            ] %}
-              {% if jins %}
-                <div class="jins">
-                  <h5 class="jins-title">{{ jins.translate() }}</h5>
-                  <div class="jins-intervals">
-                    {{ jins.pretty_intervals() }}
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
+            <div class="jins">
+              <div class="jins-title">{{ maqam.tonic.translate() }}</div>
+              <div class="jins-intervals">
+                {% for interval in maqam.tonic.pretty_intervals() %}
+                  <div class="jins-intervals-arrow">⇨</div>
+                  <div class="jins-intervals-interval">{{ interval }}</div>
+                {% endfor %}
+              </div>
+            </div>
+            {% if maqam.ghammaz_option1 or maqam.ghammaz_option2 %}
+              <div class="ghammazim">
+                {% for jins in [
+                  maqam.ghammaz_option1,
+                  maqam.ghammaz_option2
+                ] %}
+                  {% if jins %}
+                    <div class="jins">
+                      <div class="jins-title">{{ jins.translate() }}</div>
+                      <div class="jins-intervals">
+                        {% for interval in jins.pretty_intervals() %}
+                          <div class="jins-intervals-arrow">⇨</div>
+                          <div class="jins-intervals-interval">{{ interval }}</div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
+          <div style="flex: 2"><!-- flex spacer --></div>
         </div>
       {% endfor %}
     </div>

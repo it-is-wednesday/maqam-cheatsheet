@@ -21,8 +21,6 @@ PRETTY_FRACTIONS = {
     6: "1½",
 }
 
-ARROW = " ⇨ "
-
 
 @dataclass
 class Jins:
@@ -36,9 +34,8 @@ class Jins:
         self.intervals = intervals
         self.gettext = gettext
 
-    def pretty_intervals(self) -> str:
-        joined = ARROW.join(PRETTY_FRACTIONS[i] for i in self.intervals)
-        return ARROW.lstrip() + joined
+    def pretty_intervals(self) -> list[str]:
+        return [PRETTY_FRACTIONS[i] for i in self.intervals]
 
     def translate(self) -> str:
         no_digits = re.sub(r"\d", "", self.name)

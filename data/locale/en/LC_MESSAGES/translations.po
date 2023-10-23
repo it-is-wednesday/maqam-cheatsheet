@@ -24,7 +24,7 @@ msgstr "A"
 msgid "B"
 msgstr "B"
 
-# ----- maqamat
+# ----- maqamat / ajnas
 
 msgid "ajam"
 msgstr "Ajam"
@@ -112,3 +112,14 @@ msgstr "Ushaq Masri"
 
 msgid "zanjaran"
 msgstr "Zanjaran"
+
+# ----- ajnas that don't share their name with a maqam
+
+msgid "upper_ajam"
+msgstr "Upper Ajam"
+
+msgid "upper_rast"
+msgstr "Upper Rast"
+
+msgid "nikriz"
+msgstr "Nikriz"

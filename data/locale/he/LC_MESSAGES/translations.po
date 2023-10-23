@@ -109,3 +109,14 @@ msgstr "עושאק מאסרי"
 
 msgid "zanjaran"
 msgstr "זנז'ראן"
+
+# ----- ajnas that don't share their name with a maqam
+
+msgid "upper_ajam"
+msgstr "עז'ם עליון"
+
+msgid "upper_rast"
+msgstr "ראסט עליון"
+
+msgid "nikriz"
+msgstr "ניקריז"

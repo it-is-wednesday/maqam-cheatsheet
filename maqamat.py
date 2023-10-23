@@ -1,13 +1,16 @@
 import csv
-from pathlib import Path
+import gettext
 import re
 from dataclasses import dataclass
+from functools import partial
 from itertools import accumulate
 from operator import add
-from typing import Any, Optional
-import gettext
+from pathlib import Path
+from typing import Any, Callable, Optional
 
 from jinja2 import Environment, PackageLoader
+
+GettextFunc = Callable[[str], str]
 
 PRETTY_FRACTIONS = {
     1: "¼",
@@ -26,9 +29,23 @@ class Jins:
     name: str
     intervals: list[int]
 
+    def __init__(
+        self, name: str, intervals: list[int], gettext: GettextFunc
+    ) -> None:
+        self.name = name
+        self.intervals = intervals
+        self.gettext = gettext
+
     def pretty_intervals(self) -> str:
         joined = ARROW.join(PRETTY_FRACTIONS[i] for i in self.intervals)
         return ARROW.lstrip() + joined
+
+    def translate(self) -> str:
+        no_digits = re.sub(r"\d", "", self.name)
+        translated = [
+            self.gettext(s) for s in no_digits.split(" + ") if s != "extra_tone"
+        ]
+        return " & ".join(translated)
 
 
 def intervals_binary(intervals: list[int]) -> int:
@@ -64,29 +81,27 @@ class Maqam:
 Ajnas = dict[str, Jins]
 
 
-def get_ajnas() -> Ajnas:
+def get_ajnas(gettext: GettextFunc) -> Ajnas:
     with open("data/ajnas.csv", newline="") as csvfile:
         return {
             row["name"]: Jins(
                 name=row["name"],
                 intervals=[int(i) for i in row["intervals"].split(" ")],
+                gettext=gettext,
             )
             for row in csv.DictReader(csvfile)
         }
 
 
-def get_maqamat(ajnas: Ajnas) -> list[Maqam]:
+def get_maqamat(ajnas: Ajnas, gettext: GettextFunc) -> list[Maqam]:
+    parse = partial(parse_jins_combination, ajnas=ajnas, gettext=gettext)
     with open("data/maqamat.csv", newline="") as csvfile:
         return [
             Maqam(
                 row["name"],
-                parse_jins_combination(row["tonic"], ajnas),
-                parse_jins_combination(g, ajnas)
-                if (g := row["ghammaz_option1"])
-                else None,
-                parse_jins_combination(g, ajnas)
-                if (g := row["ghammaz_option2"])
-                else None,
+                parse(row["tonic"]),
+                parse(g) if (g := row["ghammaz_option1"]) else None,
+                parse(g) if (g := row["ghammaz_option2"]) else None,
             )
             for row in csv.DictReader(csvfile)
         ]
@@ -100,7 +115,9 @@ def pairs(iterable: list[Any]) -> list[tuple[Any, Any]]:
     return list(zip(*[iter(iterable)] * 2, strict=True))
 
 
-def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
+def parse_jins_combination(
+    comb: str, ajnas: Ajnas, gettext: GettextFunc
+) -> Jins:
     """
     >>> parse_jins_combination('saba3 + hijaz + nikriz', get_ajnas())
     Jins(name='saba3 + hijaz + nikriz', intervals=[3, 3, 2, 6, 2, 4, 2, 6, 2])
@@ -112,45 +129,23 @@ def parse_jins_combination(comb: str, ajnas: Ajnas) -> Jins:
             jins_intervals = ajnas[jins].intervals
             overlap = int(overlap or len(jins_intervals) + 1)
             intervals.extend(jins_intervals[: overlap - 1])
-    return Jins(comb, intervals)
+    return Jins(comb, intervals, gettext)
 
 
 def make_html(locale: str) -> str:
-    ajnas_dict = get_ajnas()
-    maqamat = get_maqamat(ajnas_dict)
-
     gnu_translations = gettext.translation(
-        domain='translations',
-        localedir="data/locale/",
-        languages=[locale]
+        domain="translations", localedir="data/locale/", languages=[locale]
     )
+
+    ajnas_dict = get_ajnas(gnu_translations.gettext)
+    maqamat = get_maqamat(ajnas_dict, gnu_translations.gettext)
+
     jinja_env = Environment(
         loader=PackageLoader("maqamat"),
         autoescape=False,
         extensions=["jinja2.ext.i18n"],
     )
     jinja_env.install_gettext_translations(gnu_translations, newstyle=True)
-
-    print(
-        "{:^20}{:^20}{:^20}{:^20}".format(
-            "maqam", "tonic", "ghammaz1", "ghammaz2"
-        )
-    )
-    for maqam in maqamat:
-        print(
-            "{:^20}{:^20}{:^20}{:^20}".format(
-                maqam.name,
-                sum(maqam.tonic.intervals)
-                if not maqam.ghammaz_option1 and not maqam.ghammaz_option2
-                else "",
-                sum(maqam.tonic.intervals) + sum(g.intervals)
-                if (g := maqam.ghammaz_option1)
-                else "",
-                sum(maqam.tonic.intervals) + sum(g.intervals)
-                if (g := maqam.ghammaz_option2)
-                else "",
-            )
-        )
 
     template = jinja_env.get_template("index.html")
     return template.render(maqamat=maqamat)

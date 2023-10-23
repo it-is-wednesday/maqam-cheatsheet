@@ -109,3 +109,14 @@ msgstr "عُشّاق مصري"
 
 msgid "zanjaran"
 msgstr "زَنجَران"
+
+# ----- ajnas that don't share their name with a maqam
+
+msgid "upper_ajam"
+msgstr "عَجَم اعلى"
+
+msgid "upper_rast"
+msgstr "راست اعلى"
+
+msgid "nikriz"
+msgstr "نِكريز"

@@ -33,10 +33,17 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
   </head>
   <body x-data="makeState(notesNotations, maqamat)" x-init="refreshMatches">
-    <div class="languages-container">
-      <a class="language" href="/en">English</a>
-      <a class="language" href="/he">עברית</a>
-      <a class="language" href="/ar">العربية</a>
+    <div class="toolbar">
+      <div class="languages-container">
+        <a class="language" href="/en">English</a>
+        <a class="language" href="/he">עברית</a>
+        <a class="language" href="/ar">العربية</a>
+      </div>
+      <div class="toolbar-title">
+        maqam.love
+        <span class="toolbar-title-heart">♡</span>
+      </div>
+      <div style="flex: 1"></div>
     </div>
     <div class="controls">
       <div class="quarters-container-black">
@@ -108,7 +115,7 @@
               <div class="jins-title">{{ maqam.tonic.translate() }}</div>
               <div class="jins-intervals">
                 {% for interval in maqam.tonic.pretty_intervals() %}
-                  <div class="jins-intervals-arrow">⇨</div>
+                  <img class="jins-intervals-arrow" src="/arrow.svg" width="20" height="20" />
                   <div class="jins-intervals-interval">{{ interval }}</div>
                 {% endfor %}
               </div>
@@ -124,7 +131,7 @@
                       <div class="jins-title">{{ jins.translate() }}</div>
                       <div class="jins-intervals">
                         {% for interval in jins.pretty_intervals() %}
-                          <div class="jins-intervals-arrow">⇨</div>
+                          <img class="jins-intervals-arrow" src="/arrow.svg" width="20" height="20" />
                           <div class="jins-intervals-interval">{{ interval }}</div>
                         {% endfor %}
                       </div>

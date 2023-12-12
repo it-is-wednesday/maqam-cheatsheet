@@ -1,22 +1,16 @@
 :root {
-  --quarter-btn-color: #fbefe9;
   --btn-selected-color: #dc8f64;
   --btn-quarterly-selected: #e9b89d;
-  --maqam-bg-color: #f2db9a;
-  --maqam-title-color: #4673A8;
+  --primary: #be5a49;
 }
 
 html {
-  background-color: #be5a49;
-  background-image: url("/bg.svg");
+  background-color: #f0f0f0;
 }
 
 body {
   font-family:
-    segoe ui,
-    verdana,
-    arial,
-    sans-serif;
+    Stencil Std, fantasy, Arial;
   margin: 0 auto;
   max-width: 90%;
   display: flex;
@@ -24,16 +18,37 @@ body {
   align-items: center;
 }
 
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 0.1rem solid lightgray;
+  padding-top: 0.2rem;
+}
+
+.toolbar-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-size: 1.2rem;
+}
+
 .languages-container {
   display: flex;
   gap: 1em;
-  padding-top: 1em;
+  align-items: center;
+  flex: 1;
+}
+
+.toolbar-title-heart {
+  color: var(--primary);
+  padding-left: 0.3rem;
 }
 
 .language {
   text-decoration: none;
-  text-shadow: 2px 2px 2px black;
-  color: white;
+  color: black;
 }
 
 .maqamat {
@@ -50,15 +65,12 @@ body {
   max-width: 100%;
 }
 
-.jins {
-}
-
 .jins-title {
-  color: var(--maqam-title-color);
+  color: var(--primary);
   opacity: 0.8;
   text-align: center;
-  font-size: 0.85em;
-  font-weight: bold;
+  font-size: 1em;
+  font-family: Optima, sans-serif;
   padding-bottom: 0.4em;
 }
 
@@ -72,21 +84,20 @@ body {
 }
 
 .jins-intervals-interval {
-  color: #258791;
+  color: #303030;
   font-size: 1.5em;
 }
 
 .jins-intervals-arrow {
-  font-weight: bold;
-  color: #25879160;
+  color: #303030;
   font-size: 1.3em;
 }
 
 .maqam {
-  background-color: var(--maqam-bg-color);
+  background-color: white;
   border-radius: 1em;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   padding: 0.8em;
-  background-image: url("/maqam-bg.svg");
 
   display: flex;
   flex-direction: column;
@@ -96,10 +107,10 @@ body {
 }
 
 .maqam-title {
-  color: var(--maqam-title-color);
+  color: var(--primary);
   text-align: center;
-  font-weight: bold;
   padding-bottom: 0.7em;
+  font-size: 1.4rem;
   flex: 1;
 }
 
@@ -195,7 +206,7 @@ body {
 }
 
 .quarter-unselected-bg {
-  background-color: var(--quarter-btn-color);
+  background-color: white;
 }
 
 .white {
@@ -268,12 +279,6 @@ body {
 
   .quarters-container-white {
     width: 92%;
-  }
-}
-
-@media (min-width: 1500px) {
-  .maqamat {
-    grid-template-columns: repeat(4, 1fr);
   }
 }
 

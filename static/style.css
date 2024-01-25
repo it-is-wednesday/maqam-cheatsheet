@@ -9,8 +9,7 @@ html {
 }
 
 body {
-  font-family:
-    Stencil Std, fantasy, segoe ui, verdana, arial, sans-serif;
+  font-family: Stencil Std, segoe ui, verdana, arial, sans-serif;
   margin: 0 auto;
   max-width: 90%;
   display: flex;

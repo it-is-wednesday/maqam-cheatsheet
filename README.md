@@ -6,9 +6,8 @@
 
 Now run each of these commands in a separate terminal (alternatively, if you're using Zellij, you can use `./tasks zellij-panes`):
 ``` shell
-./tasks watch-babel
-./tasks watch-copy-assets
-./tasks watch-generate-html
+./tasks watch-build
+./tasks serve
 ```
 
 Now open a web broser at http://localhost:42488/en =)

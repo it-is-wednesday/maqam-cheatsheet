@@ -6,7 +6,7 @@ requires-python = ">=3.11"
 dependencies = ["jinja2", "babel"]
 
 [project.optional-dependencies]
-dev = ["pytest", "types-jinja2", "supervisor"]
+dev = ["pytest", "types-jinja2"]
 
 [tool.ruff]
 line-length = 80
@@ -17,6 +17,18 @@ strict = true
 
 [tool.black]
 line-length = 80
+
+[tool.ruff.lint]
+select = [
+    "PIE", "RUF", "F", "E", "W", "I", "UP", "FURB", "ANN", "ASYNC", "B", "A",
+    "C4", "T10", "ISC", "INP", "PT", "SIM", "TID", "INT", "PTH", "ERA", "PL",
+    "TRY", "PERF", "LOG",
+]
+ignore = ["ANN401", "PLR6301"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportMatchNotExhaustive = true
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]

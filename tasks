@@ -1,0 +1,44 @@
+#!/bin/bash
+set -euo pipefail
+IFS=$'\n\t'
+
+setup() {
+    test -f .venv || python -m venv .venv
+    .venv/bin/pip install -r requirements.txt
+    mkdir -p out
+    test -f out/alpine.min.js || curl -L unpkg.com/alpinejs > out/alpine.min.js
+}
+
+watch-babel() {
+    watchexec --print-events -w data -- \
+        .venv/bin/pybabel compile --domain=translations --directory=data/locale --use-fuzzy
+}
+
+watch-copy-assets() {
+    watchexec --print-events -w static -- \
+        cp -v static/js/index.js static/style.css static/img/* static/svg/* out
+}
+
+watch-generate-html() {
+    watchexec --print-events -w data -w static -w templates -- \
+        .venv/bin/python maqamat.py
+}
+
+serve() {
+    .venv/bin/python -m http.server 42488 --bind 127.0.0.1 --directory out
+}
+
+zellij-panes() {
+    zellij action new-pane --direction left -- ./tasks watch-babel
+    zellij action new-pane --direction down -- ./tasks watch-copy-assets
+    zellij action new-pane --direction down -- ./tasks watch-generate-html
+    ./tasks serve
+}
+
+function help {
+    echo "$0 <task> <args>"
+    echo "Tasks:"
+    compgen -A function | awk '!/^_/{ print "  " $0 }' | cat
+}
+
+"${@:-help}"

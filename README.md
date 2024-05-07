@@ -1,11 +1,17 @@
 # Developing
 ``` shell
-python -m venv .venv
-.venv/bin/pip install '.[dev]'
-.venv/bin/supervisord
+# creates a venv and installs dependencies, also downloads JS deps
+./tasks setup
 ```
 
-Now open a web broser at localhost:42488
+Now run each of these commands in a separate terminal (alternatively, if you're using Zellij, you can use `./tasks zellij-panes`):
+``` shell
+./tasks watch-babel
+./tasks watch-copy-assets
+./tasks watch-generate-html
+```
+
+Now open a web broser at http://localhost:42488/en =)
 
 # Nginx Setup with GeoIP
 You may wanna compile the GeoIP2 first: https://github.com/leev/ngx_http_geoip2_module

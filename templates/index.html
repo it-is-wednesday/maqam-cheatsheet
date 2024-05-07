@@ -36,7 +36,7 @@
     <div class="toolbar">
       <div class="languages-container">
         <a class="language" href="/en">English</a>
-        <a class="language" href="/he">עברית</a>
+        <a class="language spaced-letters" href="/he">עברית</a>
         <a class="language" href="/ar">العربية</a>
       </div>
       <div class="toolbar-title">
@@ -96,7 +96,7 @@
     <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">
-          <div class="maqam-title">{{ gettext(maqam.name) }}</div>
+          <div class="maqam-title{% if locale == 'he' %} spaced-letters{% endif %}">{{ gettext(maqam.name) }}</div>
           <div style="flex: 1"><!-- flex spacer --></div>
           <div
             class="matching-keys"

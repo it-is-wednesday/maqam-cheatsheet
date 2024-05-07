@@ -146,7 +146,7 @@ def make_html(locale: str) -> str:
     jinja_env.install_gettext_translations(gnu_translations, newstyle=True)
 
     template = jinja_env.get_template("index.html")
-    return template.render(maqamat=maqamat)
+    return template.render(maqamat=maqamat, locale=locale)
 
 
 def main() -> None:

@@ -20,7 +20,7 @@ watch-build() {
 
 build() {
     .venv/bin/pybabel compile --domain=translations --directory=data/locale --use-fuzzy
-    cp static/js/index.js static/style.css static/img/* static/svg/* out
+    cp -v static/js/index.js static/style.css static/img/* static/svg/* static/font/* out
     .venv/bin/python maqamat.py
 }
 

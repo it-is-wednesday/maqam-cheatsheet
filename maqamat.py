@@ -1,12 +1,13 @@
 import csv
 import gettext
 import re
+from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
 from itertools import accumulate
 from operator import add
 from pathlib import Path
-from typing import Any, Callable, Optional
+from typing import Any
 
 from jinja2 import Environment, PackageLoader
 
@@ -59,8 +60,8 @@ def intervals_binary(intervals: list[int]) -> int:
 class Maqam:
     name: str
     tonic: Jins
-    ghammaz_option1: Optional[Jins] = None
-    ghammaz_option2: Optional[Jins] = None
+    ghammaz_option1: Jins | None = None
+    ghammaz_option2: Jins | None = None
 
     def to_binary(self) -> list[int]:
         t = self.tonic.intervals
@@ -79,7 +80,7 @@ Ajnas = dict[str, Jins]
 
 
 def get_ajnas(gettext: GettextFunc) -> Ajnas:
-    with open("data/ajnas.csv", newline="") as csvfile:
+    with Path("data/ajnas.csv").open(newline="") as csvfile:
         return {
             row["name"]: Jins(
                 name=row["name"],
@@ -92,7 +93,7 @@ def get_ajnas(gettext: GettextFunc) -> Ajnas:
 
 def get_maqamat(ajnas: Ajnas, gettext: GettextFunc) -> list[Maqam]:
     parse = partial(parse_jins_combination, ajnas=ajnas, gettext=gettext)
-    with open("data/maqamat.csv", newline="") as csvfile:
+    with Path("data/maqamat.csv").open(newline="") as csvfile:
         return [
             Maqam(
                 row["name"],

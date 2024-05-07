@@ -24,7 +24,7 @@ select = [
     "C4", "T10", "ISC", "INP", "PT", "SIM", "TID", "INT", "PTH", "ERA", "PL",
     "TRY", "PERF", "LOG",
 ]
-ignore = ["ANN401", "PLR6301"]
+ignore = ["ANN401", "PLR6301", "ANN101"]
 
 [tool.pyright]
 typeCheckingMode = "strict"

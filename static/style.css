@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  font-family: Keshet;
+  font-family: sans-serif;
   margin: 0 auto;
   max-width: 90%;
   display: flex;
@@ -38,6 +38,7 @@ body {
   justify-content: center;
   flex: 1;
   font-size: 1.2rem;
+  font-family: sans-serif;
   letter-spacing: 0.05rem;
 }
 
@@ -53,7 +54,23 @@ body {
   padding-left: 0.3rem;
 }
 
+.toolbar-credits {
+  font-family: Keshet;
+  flex-direction: row-reverse;
+  font-size: 0.8rem;
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: 0.3rem;
+  letter-spacing: 0.04rem;
+}
+
+.toolbar-credits-link {
+  color: black;
+}
+
 .language {
+  font-family: Keshet;
   text-decoration: none;
   color: black;
 }
@@ -66,10 +83,6 @@ body {
 
 .maqam-img {
   max-width: 100%;
-}
-
-.jins {
-  font-family: serif;
 }
 
 .jins-img {
@@ -117,6 +130,7 @@ body {
 }
 
 .maqam-title {
+  font-family: Keshet;
   color: var(--primary);
   text-align: center;
   padding-bottom: 0.7em;

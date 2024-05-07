@@ -36,18 +36,23 @@
     <div class="toolbar">
       <div class="languages-container">
         <a class="language" href="/en">English</a>
-        <a class="language spaced-letters" href="/he">עברית</a>
+        <a class="language special-font-hebrew" href="/he">עברית</a>
         <a class="language" href="/ar">العربية</a>
       </div>
       <div class="toolbar-title">
         maqam.love
         <span class="toolbar-title-heart">♡</span>
       </div>
-      <div class="toolbar-credits">
+      <div class="toolbar-credits {{ special_font_class }}" dir="{{ dir }}">
         {% if locale == "he" %}
           גופן באדיבות
           <a class="toolbar-credits-link" href="https://www.oketz.com/fonts/keshet.html">
              העוקץ
+          </a>
+        {% elif locale == "en" %}
+          Font is by courtesy of
+          <a class="toolbar-credits-link" href="https://50fox.com/product/our-ramadhan-fonts/">
+            50fox
           </a>
         {% endif %}
       </div>
@@ -103,7 +108,7 @@
     <div class="maqamat">
       {% for maqam in maqamat %}
         <div class="maqam" x-show="matches['{{ maqam.name }}'].size > 0">
-          <div class="maqam-title{% if locale == 'he' %} spaced-letters{% endif %}">{{ gettext(maqam.name) }}</div>
+          <div class="maqam-title {{ special_font_class }}">{{ gettext(maqam.name) }}</div>
           <div style="flex: 1"><!-- flex spacer --></div>
           <div
             class="matching-keys"

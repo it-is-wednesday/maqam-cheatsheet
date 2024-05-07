@@ -145,8 +145,24 @@ def make_html(locale: str) -> str:
     )
     jinja_env.install_gettext_translations(gnu_translations, newstyle=True)
 
+    match locale:
+        case "he":
+            special_font_class = "special-font-hebrew"
+            writing_direction = "rtl"
+        case "en":
+            special_font_class = "special-font-english"
+            writing_direction = "ltr"
+        case "ar":
+            special_font_class = ""
+            writing_direction = "rtl"
+
     template = jinja_env.get_template("index.html")
-    return template.render(maqamat=maqamat, locale=locale)
+    return template.render(
+        maqamat=maqamat,
+        special_font_class=special_font_class,
+        locale=locale,
+        dir=writing_direction,
+    )
 
 
 def main() -> None:
